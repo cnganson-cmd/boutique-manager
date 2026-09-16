@@ -1,0 +1,1 @@
+document.querySelectorAll('.card, .hero button, .pending article').forEach(el=>el.addEventListener('click',()=>{alert('Écran suivant en cours de construction — cette première version valide la navigation et le design mobile.')}));

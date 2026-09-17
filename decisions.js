@@ -8,31 +8,20 @@ async function requestDetail(id){
     const refIds=[...new Set(lines.map(l=>l.reference_produit_id))];
     const refs=refIds.length?await request(`/rest/v1/references_produit?select=reference_produit_id,libelle_reference&reference_produit_id=in.(${refIds.join(',')})`):[];
     const rm=Object.fromEntries(refs.map(r=>[r.reference_produit_id,r.libelle_reference]));
-    const events=await authApi('evenements_lignes_flux_stock','ligne_flux_stock_id,quantite,decision,commentaire,cree_le',`&type_evenement=eq.DECISION_MAGASINIER&ligne_flux_stock_id=in.(${lines.map(l=>l.ligne_flux_stock_id).join(',')})`);
+    const ids=lines.map(l=>l.ligne_flux_stock_id);
+    const events=ids.length?await authApi('evenements_lignes_flux_stock','ligne_flux_stock_id,quantite,decision,commentaire,cree_le',`&type_evenement=eq.DECISION_MAGASINIER&ligne_flux_stock_id=in.(${ids.join(',')})`):[];
     const em=Object.fromEntries(events.map(e=>[e.ligne_flux_stock_id,e]));
     const editable=['DEMANDE','EN_TRAITEMENT'].includes(f.statut);
-    shell(`<div class="title"><small>DEMANDE ${esc(id.slice(0,8))}</small><h1>Boutique 104</h1><p>${esc(new Date(f.cree_le).toLocaleString('fr-FR'))} · ${esc(f.statut)}</p></div><section class="list">${lines.map(l=>{const e=em[l.ligne_flux_stock_id];return `<article class="product-row"><div class="grow"><strong>${esc(rm[l.reference_produit_id]||'Référence')}</strong><span>Quantité demandée : ${l.quantite_demandee}</span>${e?`<span><b>Décision : ${esc(e.decision)}</b> · Quantité : ${e.quantite}</span>${e.commentaire?`<small>${esc(e.commentaire)}</small>`:''}`:''}</div>${!e&&editable?`<button onclick="lineDecision('${id}','${l.ligne_flux_stock_id}',${l.quantite_demandee},'${esc((rm[l.reference_produit_id]||'Référence').replace(/'/g,"&#39;"))}')">Décider</button>`:''}</article>`}).join('')}</section>${editable?'<div class="empty">La quantité demandée reste inchangée. Toute décision de Joel est enregistrée séparément dans l’historique.</div>':'<div class="empty">Cette demande ne peut plus recevoir de nouvelle décision à ce stade.</div>'}`,'requestsInbox()');
+    shell(`<div class="title"><small>DEMANDE ${esc(id.slice(0,8))}</small><h1>Boutique 104</h1><p>${esc(new Date(f.cree_le).toLocaleString('fr-FR'))} · ${esc(f.statut)}</p></div><section class="list">${lines.map(l=>{const e=em[l.ligne_flux_stock_id];const canShip=f.statut==='EN_TRAITEMENT'&&e&&['VALIDE','MODIFIE','AJOUTE'].includes(e.decision);return `<article class="product-row"><div class="grow"><strong>${esc(rm[l.reference_produit_id]||'Référence')}</strong><span>Quantité demandée : ${l.quantite_demandee}</span>${e?`<span><b>Décision : ${esc(e.decision)}</b> · Quantité : ${e.quantite}</span>${e.commentaire?`<small>${esc(e.commentaire)}</small>`:''}`:''}</div>${!e&&editable?`<button onclick="lineDecision('${id}','${l.ligne_flux_stock_id}',${l.quantite_demandee})">Décider</button>`:canShip?`<button class="primary" onclick="shipRequest('${id}')">🚚 Expédier ${e.quantite}</button>`:''}</article>`}).join('')}</section>${f.statut==='EN_TRAITEMENT'?'<div class="empty">Les lignes validées sont prêtes à être expédiées. Le stock sera débité uniquement après confirmation sécurisée.</div>':editable?'<div class="empty">La quantité demandée reste inchangée. Toute décision de Joel est enregistrée séparément dans l’historique.</div>':'<div class="empty">Cette demande ne peut plus recevoir de nouvelle décision à ce stade.</div>'}`,'requestsInbox()');
   }catch(err){shell(`<div class="title"><small>ERREUR</small><h1>Demande inaccessible</h1><p>${esc(err.message)}</p></div>`,'requestsInbox()')}
 }
-
-function lineDecision(fluxId,lineId,requested,label){
-  shell(`<div class="title"><small>DÉCISION MAGASINIER</small><h1>${label}</h1><p>Quantité demandée par la boutique : <b>${requested}</b></p></div><section class="list"><article class="product-row"><div class="grow"><strong>Accepter la demande</strong><span>Conserver exactement ${requested}</span></div><button onclick="submitLineDecision('${fluxId}','${lineId}','VALIDE',${requested})">Accepter</button></article><article class="product-row"><div class="grow"><strong>Modifier la quantité</strong><span>La demande originale restera ${requested}</span><label>Quantité proposée</label><input id="decisionQty" type="number" min="1" step="1" value="${requested}"></div><button onclick="submitModifiedDecision('${fluxId}','${lineId}',${requested})">Modifier</button></article><article class="product-row"><div class="grow"><strong>Refuser cette ligne</strong><span>Aucune quantité ne sera proposée</span></div><button onclick="submitLineDecision('${fluxId}','${lineId}','REFUSE',0)">Refuser</button></article></section><label>Commentaire facultatif</label><input id="decisionComment" type="text" maxlength="300" placeholder="Motif ou précision…">` ,`requestDetail('${fluxId}')`);
-}
-
-async function submitModifiedDecision(fluxId,lineId,requested){
-  const q=Number(document.querySelector('#decisionQty')?.value);
-  if(!Number.isInteger(q)||q<=0){alert('Entre une quantité entière supérieure à 0.');return}
-  if(q===requested){alert('Pour garder la même quantité, utilise Accepter.');return}
-  await submitLineDecision(fluxId,lineId,'MODIFIE',q);
-}
-
-async function submitLineDecision(fluxId,lineId,decision,qty){
-  const comment=document.querySelector('#decisionComment')?.value?.trim()||null;
+function lineDecision(fluxId,lineId,requested){shell(`<div class="title"><small>DÉCISION MAGASINIER</small><h1>Décider la ligne</h1><p>Quantité demandée : <b>${requested}</b></p></div><button class="primary" onclick="submitLineDecision('${fluxId}','${lineId}','VALIDE',${requested})">Accepter</button>` ,`requestDetail('${fluxId}')`)}
+async function submitLineDecision(fluxId,lineId,decision,qty){try{await request('/rest/v1/rpc/traiter_ligne_demande_stock',{method:'POST',auth:true,body:{p_ligne_flux_stock_id:lineId,p_decision:decision,p_quantite:qty,p_commentaire:null}});await requestDetail(fluxId)}catch(err){alert(err.message)}}
+async function shipRequest(fluxId){
+  if(!confirm('Confirmer l’expédition des quantités validées ? Le stock du dépôt sera débité.'))return;
   const buttons=[...document.querySelectorAll('button')];buttons.forEach(b=>b.disabled=true);
   try{
-    await request('/rest/v1/rpc/traiter_ligne_demande_stock',{method:'POST',auth:true,body:{p_ligne_flux_stock_id:lineId,p_decision:decision,p_quantite:qty,p_commentaire:comment}});
-    shell(`<div class="success"><div>✓</div><h1>Décision enregistrée</h1><p>${decision==='VALIDE'?'Quantité acceptée : '+qty:decision==='MODIFIE'?'Nouvelle quantité proposée : '+qty:'Ligne refusée'}. La quantité demandée d’origine reste conservée dans l’historique.</p><button class="primary" onclick="requestDetail('${fluxId}')">Retour à la demande</button></div>`);
-  }catch(err){
-    shell(`<div class="title"><small>DÉCISION REFUSÉE</small><h1>La décision n’a pas été enregistrée</h1><p>${esc(err.message)}</p></div><button class="primary" onclick="requestDetail('${fluxId}')">Retour</button>`,'requestsInbox()');
-  }
+    await request('/rest/v1/rpc/expedier_demande_stock',{method:'POST',auth:true,body:{p_flux_stock_id:fluxId,p_commentaire:'Expédition confirmée par le magasinier depuis Boutique Manager'}});
+    shell(`<div class="success"><div>🚚</div><h1>Stock expédié</h1><p>Le mouvement de stock est enregistré et la demande est maintenant en transit vers Boutique 104.</p><button class="primary" onclick="requestsInbox()">Retour aux demandes</button></div>`);
+  }catch(err){shell(`<div class="title"><small>EXPÉDITION REFUSÉE</small><h1>Aucun stock n’a été modifié</h1><p>${esc(err.message)}</p></div><button class="primary" onclick="requestDetail('${fluxId}')">Retour</button>`,'requestsInbox()')}
 }

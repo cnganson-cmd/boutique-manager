@@ -17,9 +17,17 @@ async function testAdminRouteSecurity(){
   }
 }
 function securityTestScreen(){
-  if(!currentUser){loginScreen();return}
+  if(!currentUser){return false}
   shell(`<div class="title"><small>TEST DE SÉCURITÉ</small><h1>Permission Administrateur</h1><p>Ce test tente de conserver active la route Dépôt Marché Central → Boutique 104. Il ne touche pas au stock.</p></div><div id="security-test-result" class="empty">Compte testé : <strong>${esc(currentUser.nom)}</strong></div><button class="primary" onclick="testAdminRouteSecurity()">Tester le refus serveur</button>`,'home()');
+  return true;
 }
-function openSecurityTestFromHash(){if(location.hash==='#security-test'&&currentUser)securityTestScreen()}
+function openSecurityTestFromHash(){
+  if(location.hash!=='#security-test')return;
+  let attempts=0;
+  const timer=setInterval(()=>{
+    attempts++;
+    if(securityTestScreen()||attempts>=40)clearInterval(timer);
+  },250);
+}
 window.addEventListener('hashchange',openSecurityTestFromHash);
-setTimeout(openSecurityTestFromHash,250);
+openSecurityTestFromHash();

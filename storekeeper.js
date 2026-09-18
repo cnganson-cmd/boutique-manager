@@ -28,14 +28,16 @@ async function submitModifiedDecision(fluxId,lineId,requested){
 }
 async function decideLine(fluxId,lineId,decision,quantity,comment=null){
   try{
-    await request('/rest/v1/rpc/traiter_ligne_demande_stock',{method:'POST',auth:true,body:{p_ligne_flux_stock_id:lineId,p_decision:decision,p_quantite:quantity,p_commentaire:comment}});
+    await request('/rest/v1/rpc/traiter_ligne_stock_idempotent',{method:'POST',auth:true,body:{p_operation_client_id:stockOpId('decision-'+lineId),p_ligne_flux_stock_id:lineId,p_decision:decision,p_quantite:quantity,p_commentaire:comment}});
+    clearStockOpId('decision-'+lineId);
     await requestDetail(fluxId)
   }catch(err){shell(`<div class="title"><small>DÉCISION REFUSÉE</small><h1>Aucune modification enregistrée</h1><p>${esc(err.message)}</p></div><button class="primary" onclick="requestDetail('${fluxId}')">Retour à la demande</button>`,'requestsInbox()')}
 }
 async function dispatchFlow(fluxId){
   const btn=document.querySelector('#dispatchBtn');if(btn){btn.disabled=true;btn.textContent='Expédition sécurisée…'}
   try{
-    await request('/rest/v1/rpc/expedier_flux_stock_auth',{method:'POST',auth:true,body:{p_flux_stock_id:fluxId}});
+    await request('/rest/v1/rpc/expedier_flux_stock_idempotent',{method:'POST',auth:true,body:{p_operation_client_id:stockOpId('ship-'+fluxId),p_flux_stock_id:fluxId,p_commentaire:'Expédition validée depuis Boutique Manager'}});
+    clearStockOpId('ship-'+fluxId);
     shell(`<div class="success"><div>🚚</div><h1>Stock expédié</h1><p>Les quantités ont été déduites du dépôt et la demande est maintenant EN TRANSIT.</p><button class="primary" onclick="requestsInbox()">Retour aux demandes</button></div>`)
   }catch(err){shell(`<div class="title"><small>EXPÉDITION REFUSÉE</small><h1>Le stock n'a pas bougé</h1><p>${esc(err.message)}</p></div><button class="primary" onclick="requestDetail('${fluxId}')">Retour à la demande</button>`,'requestsInbox()')}
 }

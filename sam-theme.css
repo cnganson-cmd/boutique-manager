@@ -64,6 +64,15 @@ button { min-height: 44px; }
 .field-help { margin-top: 8px; color: var(--sam-muted); font-size: 12px; line-height: 1.45; }
 .product-row, .pack-card { border-color: var(--sam-line); background: #fff; box-shadow: 0 4px 14px rgba(64, 25, 49, .035); }
 .product-row > div:last-child button, .mini { min-height: 38px; margin: 3px; padding: 7px 10px; border: 1px solid var(--sam-line); border-radius: 10px; background: #f5eef2; color: var(--sam-plum); }
+.product-row > .row-action { width: auto; min-width: 112px; height: auto; min-height: 44px; padding: 10px 14px; border: 1px solid #d9c3cf; border-radius: 12px; background: #f5eef2; color: var(--sam-plum); font-size: 13px; font-weight: 800; white-space: nowrap; }
+.product-row > .row-action:hover { background: #eadde4; }
+.status-badge { display: inline-flex !important; width: fit-content; margin-top: 9px !important; padding: 5px 9px; border-radius: 999px; font-size: 11px; font-weight: 800; }
+.status-badge.enabled { background: #e8f5ee; color: var(--sam-success); }
+.status-badge.disabled { background: #f1ecef; color: var(--sam-muted); }
+.role-list { display: grid; gap: 7px; margin-top: 10px; }
+.role-assignment { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 8px 7px 10px; border-radius: 10px; background: #faf6f8; }
+.role-assignment span { margin: 0; color: var(--sam-ink); font-size: 12px; }
+.muted-label { color: var(--sam-muted); font-size: 12px; }
 .stock-quantity { min-width: 56px; padding: 10px; border-radius: 13px; background: #f3eaf0; color: var(--sam-plum); text-align: center; }
 .stock-quantity strong { display: block; font-size: 22px; line-height: 1; }
 .stock-quantity small { display: block; margin-top: 4px; color: var(--sam-muted); font-size: 9px; }
@@ -103,6 +112,11 @@ nav span { font-size: 11px; font-weight: 750; margin-top: 5px; }
   .card { min-height: 108px; }
   .metrics { gap: 5px; }
   .metric { padding-inline: 4px; }
+}
+
+@media (max-width: 520px) {
+  .admin-row { align-items: stretch; flex-direction: column; }
+  .product-row > .row-action { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

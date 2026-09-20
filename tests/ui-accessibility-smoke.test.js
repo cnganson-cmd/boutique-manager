@@ -25,8 +25,12 @@ assert.match(money, /Indiquez un montant en cash ou Mobile Money/);
 assert.match(money, /label for="m-reason"/);
 assert.match(money, /label for="m-source"/);
 assert.match(admin, /code==='DESTOCKEUR'/);
+assert.match(admin, /class="row-action"/);
+assert.match(admin, /class="role-assignment"/);
+assert.match(read('admin-routes.js'), /status-badge/);
+assert.match(css, /\.product-row > \.row-action/);
 assert.doesNotMatch(anomalies, /Expédié par Joel|reçu par Georges|Observation Joel/);
 assert.match(index, /money-ux\.js\?v=8/);
-assert.match(index, /sam-theme\.css\?v=4/);
+assert.match(index, /sam-theme\.css\?v=5/);
 
 console.log('Audit UI/accessibilité: OK');

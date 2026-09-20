@@ -25,6 +25,7 @@ Le client ne contient qu’une clé publique Supabase. Aucune clé `service_role
 | `admin-console.js` | utilisateurs, rôles, sites et journal |
 | `admin-routes.js` | configuration des routes de stock et d’argent |
 | `catalog-ux.js` | consultation du catalogue |
+| `catalog-admin.js` | création sécurisée des produits, références et conditionnements |
 
 ## 4. Modèle d’autorisation
 

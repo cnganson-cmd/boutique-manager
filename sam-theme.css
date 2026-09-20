@@ -73,6 +73,10 @@ button { min-height: 44px; }
 .role-assignment { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 8px 7px 10px; border-radius: 10px; background: #faf6f8; }
 .role-assignment span { margin: 0; color: var(--sam-ink); font-size: 12px; }
 .muted-label { color: var(--sam-muted); font-size: 12px; }
+.form-section { margin-top: 24px; padding: 18px; border: 1px solid var(--sam-line); border-radius: 18px; background: #fff; }
+.form-section h2 { margin: 0 0 12px; color: var(--sam-plum-dark); }
+.form-pair { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+.form-pair label { margin-top: 10px; }
 .stock-quantity { min-width: 56px; padding: 10px; border-radius: 13px; background: #f3eaf0; color: var(--sam-plum); text-align: center; }
 .stock-quantity strong { display: block; font-size: 22px; line-height: 1; }
 .stock-quantity small { display: block; margin-top: 4px; color: var(--sam-muted); font-size: 9px; }
@@ -117,6 +121,7 @@ nav span { font-size: 11px; font-weight: 750; margin-top: 5px; }
 @media (max-width: 520px) {
   .admin-row { align-items: stretch; flex-direction: column; }
   .product-row > .row-action { width: 100%; }
+  .form-pair { grid-template-columns: 1fr; gap: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

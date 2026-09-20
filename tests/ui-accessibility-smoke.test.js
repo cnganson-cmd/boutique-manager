@@ -9,6 +9,7 @@ const money = read('money-ux.js');
 const shell = read('ux-shell.js');
 const admin = read('admin-console.js');
 const anomalies = read('patron-anomalies.js');
+const catalogAdmin = read('catalog-admin.js');
 const index = read('index.html');
 
 assert.match(css, /button:focus-visible/);
@@ -31,6 +32,9 @@ assert.match(read('admin-routes.js'), /status-badge/);
 assert.match(css, /\.product-row > \.row-action/);
 assert.doesNotMatch(anomalies, /Expédié par Joel|reçu par Georges|Observation Joel/);
 assert.match(index, /money-ux\.js\?v=8/);
-assert.match(index, /sam-theme\.css\?v=5/);
+assert.match(index, /sam-theme\.css\?v=6/);
+assert.match(index, /catalog-admin\.js\?v=1/);
+assert.match(catalogAdmin, /admin_creer_produit_complet/);
+assert.match(catalogAdmin, /for="cp-brand"/);
 
 console.log('Audit UI/accessibilité: OK');

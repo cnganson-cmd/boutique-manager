@@ -72,6 +72,10 @@ Samuel utilise la vue globale pour suivre les stocks de tous les détenteurs, le
 
 Cedric gère les utilisateurs, rôles, sites, routes de stock, routes financières et le journal d’administration. La désactivation d’un utilisateur ou d’un site désactive les détenteurs concernés ; les routes ne sont jamais réactivées automatiquement.
 
+### Ajouter un produit
+
+Administration → Catalogue → Nouveau produit. Renseigner la marque, le nom, la catégorie, le type, le SKU, la contenance et, si nécessaire, le nombre d’unités par carton. Une marque saisie pour la première fois est créée automatiquement. Le produit n’est enregistré que si toutes les données sont valides.
+
 ## En cas de problème
 
 - Vérifier l’espace sélectionné en haut de l’écran.

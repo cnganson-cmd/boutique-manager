@@ -35,7 +35,7 @@ const context={
 };
 context.window=context;
 vm.createContext(context);
-for(const file of ['admin-routes.js','ux-shell.js','route-aware-requests.js','stock-flow-ux.js','flow-inboxes.js','admin-console.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
+for(const file of ['admin-routes.js','ux-shell.js','route-aware-requests.js','stock-flow-ux.js','flow-inboxes.js','catalog-admin.js','admin-console.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 
 function includes(...labels){for(const label of labels)assert.ok(app.innerHTML.includes(label),`Élément absent: ${label}`)}
 function excludes(...labels){for(const label of labels)assert.ok(!app.innerHTML.includes(label),`Élément interdit présent: ${label}`)}

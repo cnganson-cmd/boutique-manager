@@ -34,6 +34,7 @@ assert.doesNotMatch(anomalies, /Expédié par Joel|reçu par Georges|Observation
 assert.match(index, /money-ux\.js\?v=8/);
 assert.match(index, /sam-theme\.css\?v=6/);
 assert.match(index, /catalog-admin\.js\?v=1/);
+assert.match(index, /admin-console\.js\?v=6/);
 assert.match(catalogAdmin, /admin_creer_produit_complet/);
 assert.match(catalogAdmin, /for="cp-brand"/);
 

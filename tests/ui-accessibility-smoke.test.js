@@ -32,11 +32,12 @@ assert.match(read('admin-routes.js'), /status-badge/);
 assert.match(css, /\.product-row > \.row-action/);
 assert.doesNotMatch(anomalies, /Expédié par Joel|reçu par Georges|Observation Joel/);
 assert.match(index, /money-ux\.js\?v=8/);
-assert.match(index, /sam-theme\.css\?v=6/);
-assert.match(index, /catalog-admin\.js\?v=1/);
+assert.match(index, /sam-theme\.css\?v=7/);
+assert.match(index, /catalog-admin\.js\?v=2/);
 assert.match(index, /admin-console\.js\?v=6/);
 assert.match(index, /ux-shell\.js\?v=14/);
 assert.match(catalogAdmin, /admin_creer_produit_complet/);
+assert.match(catalogAdmin, /admin_generer_sku_produit/);
 assert.match(catalogAdmin, /for="cp-brand"/);
 
 console.log('Audit UI/accessibilité: OK');

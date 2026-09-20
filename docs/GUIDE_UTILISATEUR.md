@@ -74,7 +74,7 @@ Cedric gère les utilisateurs, rôles, sites, routes de stock, routes financièr
 
 ### Ajouter un produit
 
-Administration → Catalogue → Nouveau produit. Renseigner la marque, le nom, la catégorie, le type, le SKU, la contenance et, si nécessaire, le nombre d’unités par carton. Une marque saisie pour la première fois est créée automatiquement. Le produit n’est enregistré que si toutes les données sont valides.
+Administration → Catalogue → Nouveau produit. Renseigner la marque, le nom, la catégorie, le type, la contenance et, si nécessaire, le nombre d’unités par carton. Le SKU interne est généré automatiquement sous la forme `SAM-000001`. Une marque saisie pour la première fois est créée automatiquement. Le produit n’est enregistré que si toutes les données sont valides.
 
 ## En cas de problème
 

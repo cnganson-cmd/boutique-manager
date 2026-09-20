@@ -77,6 +77,9 @@ button { min-height: 44px; }
 .form-section h2 { margin: 0 0 12px; color: var(--sam-plum-dark); }
 .form-pair { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
 .form-pair label { margin-top: 10px; }
+.auto-value { padding: 13px 14px; border-radius: 13px; background: #f5eef2; color: var(--sam-plum); }
+.auto-value strong, .auto-value span { display: block; }
+.auto-value span { margin-top: 4px; color: var(--sam-muted); font-size: 12px; line-height: 1.4; }
 .stock-quantity { min-width: 56px; padding: 10px; border-radius: 13px; background: #f3eaf0; color: var(--sam-plum); text-align: center; }
 .stock-quantity strong { display: block; font-size: 22px; line-height: 1; }
 .stock-quantity small { display: block; margin-top: 4px; color: var(--sam-muted); font-size: 9px; }

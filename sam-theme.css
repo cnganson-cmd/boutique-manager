@@ -80,6 +80,12 @@ button { min-height: 44px; }
 .auto-value { padding: 13px 14px; border-radius: 13px; background: #f5eef2; color: var(--sam-plum); }
 .auto-value strong, .auto-value span { display: block; }
 .auto-value span { margin-top: 4px; color: var(--sam-muted); font-size: 12px; line-height: 1.4; }
+.admin-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+.admin-toolbar button { min-height: 46px; padding: 10px 14px; border: 1px solid var(--sam-line); border-radius: 13px; background: #fff; color: var(--sam-plum); font-weight: 800; }
+.admin-toolbar .primary { background: var(--sam-plum); color: #fff; }
+.admin-filters { display: grid; gap: 10px; margin: 14px 0 20px; padding: 14px; border: 1px solid var(--sam-line); border-radius: 17px; background: #fff; }
+.admin-filters label { margin: 0; }
+[hidden] { display: none !important; }
 .stock-quantity { min-width: 56px; padding: 10px; border-radius: 13px; background: #f3eaf0; color: var(--sam-plum); text-align: center; }
 .stock-quantity strong { display: block; font-size: 22px; line-height: 1; }
 .stock-quantity small { display: block; margin-top: 4px; color: var(--sam-muted); font-size: 9px; }
@@ -143,6 +149,7 @@ nav span { font-size: 11px; font-weight: 750; margin-top: 5px; }
   .metric { padding: 17px 10px; }
   nav { width: min(900px, calc(100% - 48px)); }
   .login { width: min(100%, 480px); margin-inline: auto; }
+  .admin-filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1100px) {

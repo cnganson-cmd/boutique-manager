@@ -83,6 +83,14 @@ La désactivation d’un utilisateur ou d’un lieu désactive les détenteurs c
 
 Chaque nouvel utilisateur possède une civilité, un prénom, un nom, une adresse e-mail et un numéro de téléphone. Les écrans opérationnels affichent uniquement le prénom. Dans **Équipe → Utilisateurs**, la mention **Fiche à compléter** identifie les anciens profils dont les coordonnées doivent encore être renseignées. L’Administrateur ouvre **Modifier** pour compléter la fiche sans changer les responsabilités existantes.
 
+Le bouton **Accès** permet ensuite d’envoyer l’invitation, de renvoyer un accès, de réinitialiser le mot de passe ou de synchroniser l’adresse de connexion. Le destinataire ouvre le lien reçu et choisit lui-même un mot de passe d’au moins 10 caractères.
+
+Les listes Utilisateurs et Produits disposent d’une recherche et de filtres. **Exporter** télécharge un fichier CSV ; **Importer** permet de remettre à jour les fiches utilisateurs exportées ou de créer plusieurs produits. Avant la désactivation d’un utilisateur ou d’un lieu, l’application résume les responsabilités et autorisations concernées.
+
+Dans **Produits**, **Modifier** permet de corriger ou désactiver un produit, d’ajouter une référence automatiquement numérotée et de modifier ses conditionnements. **Marques et catégories** permet de gérer les marques, catégories et types de produits.
+
+Dans **Contrôle**, le journal peut être filtré par texte, personne et date. **Détails** montre les informations techniques enregistrées et **Exporter le journal** produit un CSV.
+
 ### Ajouter un produit
 
 Administration → Produits → Nouveau produit. Renseigner la marque, le nom, la catégorie, le type, la contenance et, si nécessaire, le nombre d’unités par carton. Le SKU interne est généré automatiquement sous la forme `SAM-000001`. Une marque saisie pour la première fois est créée automatiquement. Le produit n’est enregistré que si toutes les données sont valides.

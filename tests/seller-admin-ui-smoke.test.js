@@ -25,6 +25,12 @@ const context={
     if(table==='routes_flux_stock')return [{route_flux_stock_id:'route-1',type_flux_stock_id:'return-type',detenteur_source_id:'holder-joel',detenteur_destination_id:'holder-104',actif:true}];
     if(table==='routes_financieres')return [{route_financiere_id:'money-route',detenteur_source_id:'holder-joel',detenteur_destination_id:'holder-104',actif:true,cree_le:'2026-09-20T08:00:00Z'}];
     if(table==='journal_administration')return [{journal_administration_id:'j1',acteur_user_id:'cedric',action_code:'ROLE_ATTRIBUE',objet_type:'UTILISATEUR_ROLE_SITE',objet_id:'a1',details:{},cree_le:'2026-09-20T08:00:00Z'}];
+    if(table==='produits')return [{produit_id:'product-1',nom_produit:'Lait corps',variante:'Karité',marque_id:'brand-1',categorie_produit_id:'category-1',type_produit_id:'type-1',actif:true}];
+    if(table==='marques')return [{marque_id:'brand-1',nom_marque:'SAM Test',actif:true}];
+    if(table==='categories_produits')return [{categorie_produit_id:'category-1',nom_categorie:'Corps',actif:true}];
+    if(table==='types_produit')return [{type_produit_id:'type-1',nom_type:'Lait',actif:true}];
+    if(table==='references_produit')return [{reference_produit_id:'ref-1',produit_id:'product-1',sku_interne:'SAM-000001',libelle_reference:'Lait corps · Karité · 400 ML',actif:true}];
+    if(table==='conditionnements_reference')return [];
     if(['flux_stock','flux_argent','recettes'].includes(table))return [];
     return [];
   },
@@ -35,7 +41,7 @@ const context={
 };
 context.window=context;
 vm.createContext(context);
-for(const file of ['admin-routes.js','ux-shell.js','route-aware-requests.js','stock-flow-ux.js','flow-inboxes.js','catalog-admin.js','admin-console.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
+for(const file of ['admin-routes.js','ux-shell.js','route-aware-requests.js','stock-flow-ux.js','flow-inboxes.js','catalog-admin.js','admin-console.js','admin-extras.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 
 function includes(...labels){for(const label of labels)assert.ok(app.innerHTML.includes(label),`Élément absent: ${label}`)}
 function excludes(...labels){for(const label of labels)assert.ok(!app.innerHTML.includes(label),`Élément interdit présent: ${label}`)}
@@ -62,11 +68,19 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   handlersExist();
 
   await vm.runInContext('adminUsers()',context);
-  includes('Cedric','Joel','FICHE COMPLÈTE','FICHE À COMPLÉTER');
+  includes('Cedric','Joel','FICHE COMPLÈTE','FICHE À COMPLÉTER','Rechercher','Exporter','Importer','Accès');
   handlersExist();
 
   vm.runInContext('adminNewUser()',context);
   includes('Civilité','Prénom','Nom','Adresse e-mail','Numéro de téléphone');
+  handlersExist();
+
+  await vm.runInContext("adminUserAccess('cedric')",context);
+  includes('Accès de Cedric','Renvoyer un accès','Réinitialiser le mot de passe','Synchroniser l’e-mail');
+  handlersExist();
+
+  await vm.runInContext('adminCatalog()',context);
+  includes('Lait corps','Modifier','Marques et catégories','Importer','Exporter');
   handlersExist();
 
   vm.runInContext('adminNetworkHub()',context);
@@ -80,7 +94,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('Joel · mobile','Boutique 104','Remises d’argent autorisées');
 
   await vm.runInContext('adminJournal()',context);
-  includes('Historique des modifications','Responsabilité attribuée','Cedric');
+  includes('Historique des modifications','Responsabilité attribuée','Cedric','Exporter le journal','Depuis');
 
   console.log('Recette UI Vendeur/Administrateur: OK');
 })().catch(error=>{console.error(error);process.exitCode=1});

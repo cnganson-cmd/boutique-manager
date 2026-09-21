@@ -54,6 +54,12 @@
 | ADMIN-03 | Cedric ouvre la configuration | Utilisateurs, rôles, sites, routes et journal accessibles |
 | ADMIN-04 | Cedric crée puis désactive un utilisateur | Modification appliquée et journalisée |
 | ADMIN-05 | Cedric consulte les utilisateurs créés avant l’enrichissement des profils | Le prénom reste affiché et la fiche est signalée « À compléter » |
+| ADMIN-06 | Cedric invite un profil complet non lié | Le compte Auth est créé ou retrouvé, lié à la fiche et l’e-mail d’accès est envoyé |
+| ADMIN-07 | L’utilisateur ouvre l’invitation | Il choisit son mot de passe puis accède à son espace selon ses responsabilités |
+| ADMIN-08 | Cedric désactive un utilisateur ou un lieu | Un aperçu des responsabilités et autorisations concernées précède la confirmation |
+| ADMIN-09 | Cedric recherche et exporte utilisateurs, produits ou journal | Les filtres fonctionnent et le CSV est téléchargé |
+| ADMIN-10 | Cedric modifie un produit ou ajoute une référence | Le catalogue est mis à jour, le SKU est automatique et l’action est journalisée |
+| ADMIN-11 | Cedric importe un CSV produits ou utilisateurs | Les lignes valides sont traitées et le nombre de lignes refusées est annoncé |
 | ADMIN-05 | Un Gérant appelle une RPC Admin | Refus « Administration non autorisée » |
 | ADMIN-06 | Cedric consulte les routes mobiles | Le nom « Joel · mobile » est affiché |
 

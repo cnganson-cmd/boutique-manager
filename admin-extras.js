@@ -63,3 +63,30 @@ function adminPartnerForm(type,id=''){const keys={FABRICANT:['fabricant_id','nom
 async function adminSavePartner(type,id){try{await request('/rest/v1/rpc/admin_configurer_partenaire_catalogue',{method:'POST',auth:true,body:{p_type:type,p_id:id||null,p_nom:document.getElementById('partner-name').value.trim(),p_actif:document.getElementById('partner-active').checked}});adminCatalogSettings('Partenaire mis à jour.')}catch(e){adminError('Enregistrement refusé',e,'adminCatalogSettings()')}}
 function adminLookupForm(type,id=''){const keys={MARQUE:['marque_id','nom_marque'],CATEGORIE:['categorie_produit_id','nom_categorie'],TYPE:['type_produit_id','nom_type']},[idKey,nameKey]=keys[type],item=(window.adminLookupData?.[type]||[]).find(x=>x[idKey]===id);shell(`<div class="title"><small>CATALOGUE</small><h1>${item?'Modifier':'Ajouter'} ${type==='MARQUE'?'une marque':type==='CATEGORIE'?'une catégorie':'un type'}</h1></div><label>Nom<input id="lookup-name" value="${esc(item?.[nameKey]||'')}"></label><label><input id="lookup-active" type="checkbox" ${item?.actif===false?'':'checked'}> Actif</label><button class="primary" onclick="adminSaveLookup('${type}','${id}')">Enregistrer</button>`,'adminCatalogSettings()')}
 async function adminSaveLookup(type,id){try{await request('/rest/v1/rpc/admin_configurer_nomenclature_produit',{method:'POST',auth:true,body:{p_type:type,p_id:id||null,p_nom:document.getElementById('lookup-name').value.trim(),p_actif:document.getElementById('lookup-active').checked}});adminCatalogSettings('Liste mise à jour.')}catch(e){adminError('Enregistrement refusé',e,'adminCatalogSettings()')}}
+
+// Réduit les photos avant envoi pour les connexions mobiles lentes. Si le
+// navigateur ne sait pas convertir l'image, le fichier validé reste utilisable.
+async function adminCompressReferencePhoto(file){
+  if(typeof createImageBitmap!=='function')return{blob:file,type:file.type,extension:{'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[file.type]};
+  const bitmap=await createImageBitmap(file),limit=1200,scale=Math.min(1,limit/Math.max(bitmap.width,bitmap.height)),width=Math.max(1,Math.round(bitmap.width*scale)),height=Math.max(1,Math.round(bitmap.height*scale)),canvas=document.createElement('canvas');
+  canvas.width=width;canvas.height=height;canvas.getContext('2d').drawImage(bitmap,0,0,width,height);bitmap.close?.();
+  const webp=await new Promise(resolve=>canvas.toBlob(resolve,'image/webp',.78));
+  if(!webp||webp.size>=file.size)return{blob:file,type:file.type,extension:{'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[file.type]};
+  return{blob:webp,type:'image/webp',extension:'webp'};
+}
+
+async function adminUploadReferencePhoto(id,productId,file){
+  if(!file)return;
+  const allowed=['image/jpeg','image/png','image/webp'];
+  if(!allowed.includes(file.type)||file.size>5*1024*1024){alert('Choisissez une image JPEG, PNG ou WebP de 5 Mo maximum.');return}
+  try{
+    const refs=await authApi('references_produit','photo_url',`&reference_produit_id=eq.${encodeURIComponent(id)}`),oldUrl=refs[0]?.photo_url||'',optimized=await adminCompressReferencePhoto(file),path=`${id}/${crypto.randomUUID()}.${optimized.extension}`,encoded=path.split('/').map(encodeURIComponent).join('/'),response=await fetch(`${SUPABASE_URL}/storage/v1/object/product-reference-images/${encoded}`,{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${accessToken}`,'Content-Type':optimized.type,'Cache-Control':'31536000','x-upsert':'false'},body:optimized.blob});
+    if(!response.ok){const data=await response.json().catch(()=>({}));throw new Error(data.message||`Envoi impossible (${response.status})`)}
+    const photoUrl=`${SUPABASE_URL}/storage/v1/object/public/product-reference-images/${encoded}`;
+    try{await request('/rest/v1/rpc/admin_associer_photo_reference',{method:'POST',auth:true,body:{p_reference_produit_id:id,p_photo_url:photoUrl}})}catch(error){await adminStorageDelete(photoUrl).catch(()=>{});throw error}
+    if(oldUrl)await adminStorageDelete(oldUrl).catch(()=>{});
+    products=[];catalogReady=false;void loadCatalog();
+    const gain=file.size>optimized.blob.size?Math.round((1-optimized.blob.size/file.size)*100):0;
+    adminEditReference(id,productId,gain?`Photo enregistrée et allégée de ${gain} %.`:'Photo enregistrée.');
+  }catch(e){adminError('Photo non enregistrée',e,`adminEditReference('${id}','${productId}')`)}
+}

@@ -63,12 +63,13 @@ button:focus-visible, a:focus-visible { outline: 3px solid rgba(200, 155, 88, .5
 button { min-height: 44px; }
 .field-help { margin-top: 8px; color: var(--sam-muted); font-size: 12px; line-height: 1.45; }
 .product-row, .pack-card { border-color: var(--sam-line); background: #fff; box-shadow: 0 4px 14px rgba(64, 25, 49, .035); }
-.photo { overflow: hidden; }
-.photo img, .big-photo img { width: 100%; height: 100%; display: block; object-fit: cover; }
-.big-photo { overflow: hidden; }
+.photo { width: 72px; height: 72px; overflow: hidden; }
+.photo img, .big-photo img, .reference-photo img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.big-photo { min-height: 240px; height: min(48vh, 420px); overflow: hidden; }
+.catalog-photo-fallback { width: 100%; height: 100%; display: grid; place-items: center; font-size: 34px; }
 .reference-card { display: flex; align-items: center; gap: 14px; }
 .reference-card > div { min-width: 0; flex: 1; }
-.reference-photo { width: 82px; height: 82px; flex: 0 0 auto; border-radius: 14px; object-fit: cover; background: #f5eef2; }
+.reference-photo { width: 82px; height: 82px; flex: 0 0 auto; overflow: hidden; border-radius: 14px; background: #f5eef2; }
 .reference-photo-admin { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; padding: 18px; border: 1px solid var(--sam-line); border-radius: 18px; background: #fff; }
 .reference-photo-admin h2 { margin: 0 0 6px; font-size: 18px; color: var(--sam-plum-dark); }
 .reference-photo-admin p { font-size: 12px; line-height: 1.45; }

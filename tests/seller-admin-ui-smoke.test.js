@@ -3,7 +3,7 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 
 const app={innerHTML:''};
-const users=[{user_id:'cedric',nom:'Cedric',actif:true,auth_user_id:'auth-cedric'},{user_id:'joel',nom:'Joel',actif:true,auth_user_id:'auth-joel'}];
+const users=[{user_id:'cedric',nom:'Cedric',prenom:'Cedric',nom_famille:'Ngono',civilite:'M',email:'cedric@example.test',telephone:'+237600000001',actif:true,auth_user_id:'auth-cedric'},{user_id:'joel',nom:'Joel',prenom:'Joel',nom_famille:null,civilite:null,email:null,telephone:null,actif:true,auth_user_id:'auth-joel'}];
 const sites=[{site_id:'site-104',nom_site:'Boutique 104',type_site_id:'type-shop',ville:'Yaoundé',adresse:'104',actif:true}];
 const holders=[
   {detenteur_stock_id:'holder-104',site_id:'site-104',type_detenteur:'SITE',destockeur_user_id:null,actif:true},
@@ -59,6 +59,14 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
   vm.runInContext('adminTeamHub()',context);
   includes('Gérer l’équipe','Utilisateurs','Responsabilités et lieux de travail');
+  handlersExist();
+
+  await vm.runInContext('adminUsers()',context);
+  includes('Cedric','Joel','FICHE COMPLÈTE','FICHE À COMPLÉTER');
+  handlersExist();
+
+  vm.runInContext('adminNewUser()',context);
+  includes('Civilité','Prénom','Nom','Adresse e-mail','Numéro de téléphone');
   handlersExist();
 
   vm.runInContext('adminNetworkHub()',context);

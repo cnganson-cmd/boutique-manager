@@ -24,7 +24,7 @@
 | MONEY-03 | Boutique saisit la remise de Joel, Joel confirme | Remise `CLOTURE` |
 | MONEY-04 | Joel conteste, boutique corrige | Nouvelle confirmation demandée à Joel |
 | MONEY-05 | Route financière physique → mobile | Refus automatique |
-| ADMIN-01 | Cedric crée un utilisateur et attribue un rôle/site | Affectation active et journalisée |
+| ADMIN-01 | Cedric crée un utilisateur avec civilité, prénom, nom, e-mail et téléphone, puis attribue une responsabilité et un lieu | Profil complet, affectation active et journalisée |
 | ADMIN-02 | Désactivation site/utilisateur | Détenteur et routes concernés désactivés |
 | UI-01 | Accueils par rôle | Tous les boutons attendus sont présents |
 | UI-02 | Handlers des boutons | Aucun bouton ne référence une fonction absente |
@@ -53,6 +53,7 @@
 | VENTE-03 | Le Vendeur tente un retrait | Refus automatique, action réservée au Gérant |
 | ADMIN-03 | Cedric ouvre la configuration | Utilisateurs, rôles, sites, routes et journal accessibles |
 | ADMIN-04 | Cedric crée puis désactive un utilisateur | Modification appliquée et journalisée |
+| ADMIN-05 | Cedric consulte les utilisateurs créés avant l’enrichissement des profils | Le prénom reste affiché et la fiche est signalée « À compléter » |
 | ADMIN-05 | Un Gérant appelle une RPC Admin | Refus « Administration non autorisée » |
 | ADMIN-06 | Cedric consulte les routes mobiles | Le nom « Joel · mobile » est affiché |
 

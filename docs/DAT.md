@@ -22,7 +22,7 @@ Le client ne contient qu’une clé publique Supabase. Aucune clé `service_role
 | `stock-flow-ux.js` | création des retours, transferts et réapprovisionnements |
 | `flow-inboxes.js` | boîtes de traitement, réception et confirmation du stock |
 | `money-ux.js` | recettes, remises, retraits et décisions financières |
-| `admin-console.js` | utilisateurs, rôles, sites et journal |
+| `admin-console.js` | utilisateurs, profils, responsabilités, lieux et journal |
 | `admin-routes.js` | configuration des routes de stock et d’argent |
 | `catalog-ux.js` | consultation du catalogue |
 | `catalog-admin.js` | création sécurisée des produits, références et conditionnements |
@@ -57,6 +57,8 @@ Les RPC financières et stock utilisent un identifiant d’opération client pou
 ## 7. Sécurité
 
 - RLS active sur les tables exposées.
+- Les coordonnées personnelles (`nom_famille`, `civilite`, `email`, `telephone`) restent dans `utilisateurs` : la politique RLS autorise l’Administrateur global à consulter toutes les fiches et chaque utilisateur uniquement sa propre fiche.
+- Le champ historique `nom` conserve le prénom d’affichage pour la compatibilité. Les RPC complètes synchronisent `nom` et `prenom`, tandis que les écrans opérationnels n’affichent que ce prénom.
 - Accès directs refusés aux tables comptables internes.
 - RPC `SECURITY DEFINER` limitées par des contrôles métier internes et des grants explicites.
 - `consulter_libelles_detenteurs_accessibles()` ne retourne que les détenteurs directement reliés aux sites ou à l’activité mobile de l’utilisateur ; l’annuaire complet reste fermé.

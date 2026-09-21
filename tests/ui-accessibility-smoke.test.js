@@ -35,10 +35,15 @@ assert.match(index, /money-ux\.js\?v=8/);
 assert.match(index, /sam-theme\.css\?v=8/);
 assert.match(index, /catalog-admin\.js\?v=3/);
 assert.match(index, /admin-routes\.js\?v=9/);
-assert.match(index, /admin-console\.js\?v=8/);
+assert.match(index, /app\.js\?v=12/);
+assert.match(index, /admin-console\.js\?v=9/);
 assert.match(index, /ux-shell\.js\?v=16/);
 assert.match(catalogAdmin, /admin_creer_produit_complet/);
 assert.match(catalogAdmin, /admin_generer_sku_produit/);
 assert.match(catalogAdmin, /for="cp-brand"/);
+assert.match(admin, /admin_creer_utilisateur_complet/);
+assert.match(admin, /autocomplete="given-name"/);
+assert.match(admin, /autocomplete="family-name"/);
+assert.match(admin, /type="tel"/);
 
 console.log('Audit UI/accessibilité: OK');

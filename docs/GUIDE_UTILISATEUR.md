@@ -81,6 +81,8 @@ Son menu principal reste visible en bas sur téléphone et tablette, et sur le c
 
 La désactivation d’un utilisateur ou d’un lieu désactive les détenteurs concernés ; les autorisations de circulation ne sont jamais réactivées automatiquement.
 
+Chaque nouvel utilisateur possède une civilité, un prénom, un nom, une adresse e-mail et un numéro de téléphone. Les écrans opérationnels affichent uniquement le prénom. Dans **Équipe → Utilisateurs**, la mention **Fiche à compléter** identifie les anciens profils dont les coordonnées doivent encore être renseignées. L’Administrateur ouvre **Modifier** pour compléter la fiche sans changer les responsabilités existantes.
+
 ### Ajouter un produit
 
 Administration → Produits → Nouveau produit. Renseigner la marque, le nom, la catégorie, le type, la contenance et, si nécessaire, le nombre d’unités par carton. Le SKU interne est généré automatiquement sous la forme `SAM-000001`. Une marque saisie pour la première fois est créée automatiquement. Le produit n’est enregistré que si toutes les données sont valides.

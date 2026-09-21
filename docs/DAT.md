@@ -20,6 +20,7 @@ Le client ne contient qu’une clé publique Supabase. Aucune clé `service_role
 | `app.js` | session, appels HTTP, chargement utilisateur et catalogue |
 | `ux-shell.js` | contexte global/site/mobile, accueil par rôle et navigation |
 | `stock-flow-ux.js` | création des retours, transferts et réapprovisionnements |
+| `supplier-arrivals-ux.js` | réception des grosses livraisons fournisseur et consultation des bons |
 | `flow-inboxes.js` | boîtes de traitement, réception et confirmation du stock |
 | `money-ux.js` | recettes, remises, retraits et décisions financières |
 | `admin-console.js` | utilisateurs, profils, responsabilités, lieux et journal |
@@ -57,6 +58,16 @@ Chaque ligne conserve ses événements : décision, déclaration de réception e
 - **Remise** : saisie par le destinataire physique, confirmation ou contestation par la source, correction possible, puis arbitrage Patron si nécessaire.
 
 Les RPC financières et stock utilisent un identifiant d’opération client pour rendre les reprises idempotentes.
+
+### Arrivage fournisseur
+
+- Le numéro du bon de livraison fournisseur est saisi et conservé sans être remplacé.
+- La base génère un numéro interne `ARR-AAAA-NNNNNN` au moment de la validation.
+- Un même numéro de bon ne peut être enregistré deux fois pour un même fournisseur.
+- La réception est limitée aux sites sur lesquels l’acteur possède `RECEPTIONNER_STOCK`.
+- Chaque ligne distingue quantité attendue, reçue, abîmée et réellement entrée en stock.
+- L’arrivage, ses lignes, le crédit de stock, les mouvements liés et le journal d’audit sont écrits dans la même transaction PostgreSQL.
+- `operation_client_id` rend un double-clic ou une reprise réseau idempotent.
 
 ## 7. Sécurité
 

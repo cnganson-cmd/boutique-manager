@@ -72,6 +72,8 @@ Samuel utilise la vue globale pour suivre les stocks de tous les détenteurs, le
 
 Cedric retrouve quatre espaces simples dans l’administration : **Produits**, **Équipe**, **Boutiques et circulation** et **Contrôle**.
 
+Son menu principal reste visible en bas sur téléphone et tablette, et sur le côté sur ordinateur : **Accueil**, **Produits**, **Équipe**, **Boutiques**, **Contrôle**. Les autres profils conservent leur propre navigation.
+
 - **Produits** sert à ajouter et organiser le catalogue.
 - **Équipe** regroupe les utilisateurs, leurs responsabilités et leurs lieux de travail.
 - **Boutiques et circulation** regroupe les points de vente, les mouvements de stock autorisés et les remises d’argent autorisées.

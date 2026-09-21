@@ -43,14 +43,14 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
 (async()=>{
   vm.runInContext("activeContextSiteId='site-104';home()",context);
-  includes('Déclarer la recette','Demander du stock','Contrôler un arrivage','Trouver un produit');
+  includes('Déclarer la recette','Demander du stock','Contrôler un arrivage','Trouver un produit','À traiter','Plus');
   excludes('Routes de stock','Utilisateurs','Demander un retrait','Retourner du stock');
   handlersExist();
 
   context.currentUser={user_id:'cedric',nom:'Cedric',email:'cedric@example.test',assignments:[{role:'ADMINISTRATEUR',siteId:null,site:'GLOBAL'}]};
   vm.runInContext("currentUser=globalThis.currentUser;activeContextSiteId='__global__';home()",context);
-  includes('Administration','Produits','Équipe','Boutiques et circulation','Contrôle');
-  excludes('Routes de stock','Routes financières','Rôles et accès');
+  includes('Administration','Produits','Équipe','Boutiques et circulation','Contrôle','Navigation principale de l’administration');
+  excludes('Routes de stock','Routes financières','Rôles et accès','À traiter','Plus');
   handlersExist();
 
   vm.runInContext('adminConsole()',context);

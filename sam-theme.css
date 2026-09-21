@@ -105,6 +105,8 @@ nav button { min-width: 66px; color: #8b7f86; font-size: 16px; border-radius: 14
 nav button b { display: block; font-size: 20px; line-height: 1; }
 nav button.active { color: var(--sam-plum); background: #f3eaf0; }
 nav span { font-size: 11px; font-weight: 750; margin-top: 5px; }
+.admin-nav button { min-width: 58px; padding-inline: 5px; }
+.admin-nav span { font-size: 10px; }
 
 .login { padding-top: 38px; }
 .login > .brand { justify-content: center; margin-bottom: 50px; }
@@ -166,6 +168,8 @@ nav span { font-size: 11px; font-weight: 750; margin-top: 5px; }
   nav button { width: 100%; min-height: 54px; display: grid; grid-template-columns: 32px 1fr; align-items: center; text-align: left; }
   nav button b { text-align: center; }
   nav span { margin: 0; font-size: 14px; }
+  .admin-nav button { min-width: 0; padding-inline: 8px; }
+  .admin-nav span { font-size: 14px; }
   .title { max-width: 780px; }
   .title h1 { font-size: 34px; }
   .login { padding-top: 70px; }

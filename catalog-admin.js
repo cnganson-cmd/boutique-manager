@@ -39,7 +39,27 @@ async function adminSaveProduct(candidateId=''){
   try{
     const sku=await request('/rest/v1/rpc/admin_generer_sku_produit',{method:'POST',auth:true,body:{}});
     const supplierIds=[...document.querySelectorAll('.cp-supplier:checked')].map(x=>x.value),productId=await request('/rest/v1/rpc/admin_creer_produit_avec_approvisionnement',{method:'POST',auth:true,body:{p_nom_marque:brand,p_nom_produit:name,p_variante:value('cp-variant')||null,p_categorie_produit_id:category,p_type_produit_id:type,p_sku_interne:sku,p_code_externe:barcode||null,p_type_code_externe:barcode?'EAN13':null,p_contenance_valeur:size,p_unite_contenance:value('cp-unit'),p_quantite_dans_lot:lot,p_carton_multiplicateur:carton,p_fabricant_id:value('cp-manufacturer')||null,p_fournisseur_ids:supplierIds,p_candidat_import_id:candidateId||null}});
+    let photoMessage='';
+    if(candidateId){try{await adminCopyLanaPhoto(candidateId,productId);photoMessage='<p>La photo Lana a été copiée dans le catalogue.</p>'}catch(photoError){photoMessage=`<p><strong>Produit créé, mais photo non copiée :</strong> ${esc(photoError.message)}</p>`}}
     products=[];catalogReady=false;packagingByRef={};void loadCatalog();
-    shell(`<div class="success"><div>✓</div><h1>Produit créé</h1><p>${esc(brand)} · ${esc(name)} est maintenant disponible dans le catalogue.</p><p><strong>SKU : ${esc(sku)}</strong></p><button class="primary" onclick="adminCatalog()">Retour au catalogue</button></div>`);
+    shell(`<div class="success"><div>✓</div><h1>Produit créé</h1><p>${esc(brand)} · ${esc(name)} est maintenant disponible dans le catalogue.</p><p><strong>SKU : ${esc(sku)}</strong></p>${photoMessage}<button class="primary" onclick="adminCatalog()">Retour au catalogue</button></div>`);
   }catch(e){button.disabled=false;button.textContent='Créer le produit';alert(e.message)}
 }
+
+async function adminCopyLanaPhoto(candidateId,productId){
+  const response=await fetch(`${SUPABASE_URL}/functions/v1/import-lana-product-photo`,{method:'POST',headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${accessToken}`,'Content-Type':'application/json'},body:JSON.stringify({candidate_id:candidateId,product_id:productId})});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(data.error||`Import de photo impossible (${response.status})`);
+  return data;
+}
+
+const adminNewProductWithoutLanaPhoto=adminNewProduct;
+adminNewProduct=async function(candidateId=''){
+  await adminNewProductWithoutLanaPhoto(candidateId);
+  if(!candidateId)return;
+  try{
+    const candidate=(await authApi('candidats_import_catalogue','candidat_import_id,nom_produit,source_photo_url',`&candidat_import_id=eq.${encodeURIComponent(candidateId)}`))[0];
+    if(!candidate?.source_photo_url)return;
+    document.querySelector('.title')?.insertAdjacentHTML('afterend',`<div class="lana-import-preview"><img src="${esc(candidate.source_photo_url)}" alt="Photo proposée pour ${esc(candidate.nom_produit)}"><div><strong>Photo Lana proposée</strong><p>Elle sera copiée dans Parfumerie SAM après validation.</p></div></div>`);
+  }catch(error){console.warn('Aperçu Lana indisponible',error)}
+};

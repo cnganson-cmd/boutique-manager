@@ -32,7 +32,7 @@ const context={
     if(table==='fabricants')return [{fabricant_id:'manufacturer-1',nom_fabricant:'Lana Bio Cosmetics',actif:true}];
     if(table==='fournisseurs')return [{fournisseur_id:'supplier-1',nom_fournisseur:'Lana Bio Cosmetics',actif:true}];
     if(table==='produits_fournisseurs')return [{produit_id:'product-1',fournisseur_id:'supplier-1',actif:true}];
-    if(table==='candidats_import_catalogue')return [{candidat_import_id:'candidate-1',source_code:'LANA_SITE',source_url:'https://example.test/lana',marque:'Caro Care',nom_produit:'Crème clarifiante',variante:null,categorie_suggeree:'Corps',type_suggere:'Lait',contenance_valeur:300,unite_contenance:'G',fabricant:'Lana Bio Cosmetics',fournisseur:'Lana Bio Cosmetics',statut:'A_VALIDER',produit_id:null}];
+    if(table==='candidats_import_catalogue')return [{candidat_import_id:'candidate-1',source_code:'LANA_SITE',source_url:'https://example.test/lana',source_photo_url:'https://example.test/lana.png',marque:'Caro Care',nom_produit:'Crème clarifiante',variante:null,categorie_suggeree:'Corps',type_suggere:'Lait',contenance_valeur:300,unite_contenance:'G',fabricant:'Lana Bio Cosmetics',fournisseur:'Lana Bio Cosmetics',statut:'A_VALIDER',produit_id:null}];
     if(table==='references_produit')return [{reference_produit_id:'ref-1',produit_id:'product-1',sku_interne:'SAM-000001',libelle_reference:'Lait corps · Karité · 400 ML',photo_url:'https://example.test/lait.webp',actif:true}];
     if(table==='conditionnements_reference')return [];
     if(['flux_stock','flux_argent','recettes'].includes(table))return [];

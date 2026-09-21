@@ -70,11 +70,18 @@ Samuel utilise la vue globale pour suivre les stocks de tous les détenteurs, le
 
 ## Administrateur — exemple Cedric
 
-Cedric gère les utilisateurs, rôles, sites, routes de stock, routes financières et le journal d’administration. La désactivation d’un utilisateur ou d’un site désactive les détenteurs concernés ; les routes ne sont jamais réactivées automatiquement.
+Cedric retrouve quatre espaces simples dans l’administration : **Produits**, **Équipe**, **Boutiques et circulation** et **Contrôle**.
+
+- **Produits** sert à ajouter et organiser le catalogue.
+- **Équipe** regroupe les utilisateurs, leurs responsabilités et leurs lieux de travail.
+- **Boutiques et circulation** regroupe les points de vente, les mouvements de stock autorisés et les remises d’argent autorisées.
+- **Contrôle** affiche l’historique des modifications.
+
+La désactivation d’un utilisateur ou d’un lieu désactive les détenteurs concernés ; les autorisations de circulation ne sont jamais réactivées automatiquement.
 
 ### Ajouter un produit
 
-Administration → Catalogue → Nouveau produit. Renseigner la marque, le nom, la catégorie, le type, la contenance et, si nécessaire, le nombre d’unités par carton. Le SKU interne est généré automatiquement sous la forme `SAM-000001`. Une marque saisie pour la première fois est créée automatiquement. Le produit n’est enregistré que si toutes les données sont valides.
+Administration → Produits → Nouveau produit. Renseigner la marque, le nom, la catégorie, le type, la contenance et, si nécessaire, le nombre d’unités par carton. Le SKU interne est généré automatiquement sous la forme `SAM-000001`. Une marque saisie pour la première fois est créée automatiquement. Le produit n’est enregistré que si toutes les données sont valides.
 
 ## En cas de problème
 

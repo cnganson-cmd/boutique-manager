@@ -49,21 +49,30 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
   context.currentUser={user_id:'cedric',nom:'Cedric',email:'cedric@example.test',assignments:[{role:'ADMINISTRATEUR',siteId:null,site:'GLOBAL'}]};
   vm.runInContext("currentUser=globalThis.currentUser;activeContextSiteId='__global__';home()",context);
-  includes('Administration','Utilisateurs','Rôles et accès','Sites','Routes de stock','Routes financières','Journal');
+  includes('Administration','Produits','Équipe','Boutiques et circulation','Contrôle');
+  excludes('Routes de stock','Routes financières','Rôles et accès');
   handlersExist();
 
   vm.runInContext('adminConsole()',context);
-  includes('Configuration','Utilisateurs','Rôles & sites','Routes de stock','Routes financières','Journal d’activité');
+  includes('Gérer l’entreprise','Produits','Équipe','Boutiques et circulation','Contrôle');
+  handlersExist();
+
+  vm.runInContext('adminTeamHub()',context);
+  includes('Gérer l’équipe','Utilisateurs','Responsabilités et lieux de travail');
+  handlersExist();
+
+  vm.runInContext('adminNetworkHub()',context);
+  includes('Points de vente et stocks','Mouvements de stock autorisés','Remises d’argent autorisées');
   handlersExist();
 
   await vm.runInContext('adminStockRoutes()',context);
-  includes('Joel · mobile','Boutique 104','Retour');
+  includes('Mouvements de stock autorisés','Joel · mobile','Boutique 104','Retour');
 
   await vm.runInContext('adminFinancialRoutes()',context);
-  includes('Joel · mobile','Boutique 104','Routes financières');
+  includes('Joel · mobile','Boutique 104','Remises d’argent autorisées');
 
   await vm.runInContext('adminJournal()',context);
-  includes('Journal d’activité','Rôle attribué','Cedric');
+  includes('Historique des modifications','Responsabilité attribuée','Cedric');
 
   console.log('Recette UI Vendeur/Administrateur: OK');
 })().catch(error=>{console.error(error);process.exitCode=1});

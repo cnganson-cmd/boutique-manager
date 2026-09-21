@@ -67,6 +67,11 @@ button { min-height: 44px; }
 .photo img, .big-photo img, .reference-photo img { width: 100%; height: 100%; display: block; object-fit: contain; }
 .big-photo { min-height: 240px; height: min(48vh, 420px); overflow: hidden; }
 .catalog-photo-fallback { width: 100%; height: 100%; display: grid; place-items: center; font-size: 34px; }
+.network-summary { display: grid; grid-template-columns: auto 1fr auto 1fr; align-items: center; gap: 8px 10px; margin: 14px 0; padding: 14px 16px; border-radius: 16px; background: #f5eef2; color: var(--sam-muted); }
+.network-summary strong { color: var(--sam-plum); font-size: 20px; }
+.stock-quantity, .stock-variation { min-width: 58px; text-align: right; color: var(--sam-plum); font-size: 22px; }
+.stock-variation.positive { color: #287a52; }
+.stock-variation.negative { color: #9b3e3e; }
 .reference-card { display: flex; align-items: center; gap: 14px; }
 .reference-card > div { min-width: 0; flex: 1; }
 .reference-photo { width: 82px; height: 82px; flex: 0 0 auto; overflow: hidden; border-radius: 14px; background: #f5eef2; }

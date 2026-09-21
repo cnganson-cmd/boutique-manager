@@ -22,6 +22,11 @@ const context={
     return [];
   },
   request:async path=>{
+    if(path.includes('consulter_repartition_stock'))return [
+      {detenteur_stock_id:holderDepot,type_detenteur:'SITE',detenteur_nom:'Dépôt Marché Central',reference_produit_id:'ref-a',sku_interne:'SAM-000101',photo_url:null,marque_nom:'Caro Care',produit_nom:'Crème clarifiante',variante:null,reference_libelle:'Crème 300 G',quantite:18,mis_a_jour_le:'2026-09-20T08:00:00Z'},
+      {detenteur_stock_id:holderWarehouse,type_detenteur:'SITE',detenteur_nom:'Entrepôt Marché Kol Bikok',reference_produit_id:'ref-a',sku_interne:'SAM-000101',photo_url:null,marque_nom:'Caro Care',produit_nom:'Crème clarifiante',variante:null,reference_libelle:'Crème 300 G',quantite:7,mis_a_jour_le:'2026-09-20T09:00:00Z'}
+    ];
+    if(path.includes('consulter_mouvements_stock_accessibles'))return [];
     if(path.includes('consulter_libelles_detenteurs_accessibles'))return [
       {detenteur_stock_id:holder104,detenteur_nom:'Boutique 104'},
       {detenteur_stock_id:holderDepot,detenteur_nom:'Dépôt Marché Central'},
@@ -36,7 +41,7 @@ const context={
 };
 context.window=context;
 vm.createContext(context);
-for(const file of ['ux-shell.js','route-aware-requests.js','stock-flow-ux.js','flow-inboxes.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
+for(const file of ['ux-shell.js','catalog-ux.js','route-aware-requests.js','stock-flow-ux.js','stock-network-ux.js','flow-inboxes.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 
 function includes(...labels){for(const label of labels)assert.ok(app.innerHTML.includes(label),`Élément absent: ${label}`)}
 function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A-Za-z_$][\w$]*)/g)){assert.equal(vm.runInContext(`typeof ${match[1]}`,context),'function',`Handler absent: ${match[1]}`)}}
@@ -63,7 +68,11 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
     {role:'MAGASINIER',siteId:'site-warehouse',site:'Entrepôt Marché Kol Bikok'}
   ]};
   vm.runInContext("currentUser=globalThis.currentUser;activeContextSiteId='site-depot';home()",context);
-  includes('Dépôt Marché Central','Demandes à préparer','Envoyer du stock','Recevoir un retour','Confirmer une réception');
+  includes('Dépôt Marché Central','Stock réseau','Demandes à préparer','Envoyer du stock','Recevoir un retour','Confirmer une réception');
+  handlersExist();
+
+  await vm.runInContext('stockNetwork()',context);
+  includes('SAM-000101','Crème clarifiante','25 unités','2 emplacements','Dépôt Marché Central');
   handlersExist();
 
   await vm.runInContext("operationalInbox('requests')",context);

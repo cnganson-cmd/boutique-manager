@@ -91,6 +91,13 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('Modifier la référence','class="row-action"','Fabricant','Fournisseur(s)','Lana Bio Cosmetics');
   handlersExist();
 
+  await vm.runInContext('adminCatalogSettings()',context);
+  vm.runInContext("adminPartnerForm('FOURNISSEUR','supplier-1')",context);
+  includes('Voir les produits rattachés','seuls proposés au Magasinier');
+  await vm.runInContext("adminSupplierProducts('supplier-1')",context);
+  includes('1 produit(s) rattaché(s)','Lait corps','Gérer les rattachements dans les produits');
+  handlersExist();
+
   await vm.runInContext('adminLanaImports()',context);
   includes('Produits à valider','Crème clarifiante','Vérifier et créer','Aucun produit n’est ajouté automatiquement');
   handlersExist();

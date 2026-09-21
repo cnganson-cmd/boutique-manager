@@ -65,9 +65,12 @@ Les RPC financières et stock utilisent un identifiant d’opération client pou
 - La base génère un numéro interne `ARR-AAAA-NNNNNN` au moment de la validation.
 - Un même numéro de bon ne peut être enregistré deux fois pour un même fournisseur.
 - La réception est limitée aux sites sur lesquels l’acteur possède `RECEPTIONNER_STOCK`.
+- Après sélection du fournisseur, `consulter_references_fournisseur_reception` ne renvoie que les références actives des produits qui lui sont rattachés dans `produits_fournisseurs`.
+- Un trigger contrôle à nouveau ce rattachement lors de l’écriture : une référence étrangère au fournisseur est refusée même si l’interface est contournée.
 - Chaque ligne distingue quantité attendue, reçue, abîmée et réellement entrée en stock.
 - L’arrivage, ses lignes, le crédit de stock, les mouvements liés et le journal d’audit sont écrits dans la même transaction PostgreSQL.
 - `operation_client_id` rend un double-clic ou une reprise réseau idempotent.
+- L’Administrateur crée les fournisseurs et gère leurs rattachements depuis les fiches produit ; la fiche fournisseur présente la liste consolidée des produits concernés.
 
 ## 7. Sécurité
 

@@ -29,6 +29,7 @@ const context={
     if(path.includes('consulter_mouvements_stock_accessibles'))return [];
     if(path.includes('consulter_arrivages_fournisseur'))return [{arrivage_fournisseur_id:'arrival-1',numero_interne:'ARR-2026-000001',numero_bon_fournisseur:'BL-LANA-42',date_livraison:'2026-09-20',statut:'VALIDE',site_id:'site-depot',site_nom:'Dépôt Marché Central',fournisseur_id:'supplier-1',fournisseur_nom:'Lana Bio Cosmétique',acteur_nom:'Yakin',nombre_references:1,quantite_recue:12,quantite_abimee:1,quantite_entree_stock:11,cree_le:'2026-09-20T09:00:00Z'}];
     if(path.includes('consulter_fournisseurs_reception'))return [{fournisseur_id:'supplier-1',nom_fournisseur:'Lana Bio Cosmétique'}];
+    if(path.includes('consulter_references_fournisseur_reception'))return [{reference_produit_id:'ref-a',sku_interne:'SAM-000101',photo_url:null,libelle_reference:'Crème 300 G',produit_id:'product-a',produit_nom:'Crème clarifiante',variante:null,marque_nom:'Caro Care'}];
     if(path.includes('consulter_libelles_detenteurs_accessibles'))return [
       {detenteur_stock_id:holder104,detenteur_nom:'Boutique 104'},
       {detenteur_stock_id:holderDepot,detenteur_nom:'Dépôt Marché Central'},
@@ -79,6 +80,10 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
   await vm.runInContext('supplierArrivalHome()',context);
   includes('Arrivages fournisseurs','ARR-2026-000001','BL-LANA-42','Lana Bio Cosmétique','11 unité(s) entrée(s)');
+  handlersExist();
+
+  await vm.runInContext('startSupplierArrival()',context);
+  includes('Choisissez d’abord le fournisseur','Choisissez le fournisseur','produits disponibles dépendront de ce choix');
   handlersExist();
 
   await vm.runInContext("operationalInbox('requests')",context);

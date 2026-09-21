@@ -36,7 +36,7 @@ assert.match(index, /sam-theme\.css\?v=9/);
 assert.match(index, /catalog-admin\.js\?v=4/);
 assert.match(index, /admin-routes\.js\?v=9/);
 assert.match(index, /app\.js\?v=13/);
-assert.match(index, /admin-console\.js\?v=10/);
+assert.match(index, /admin-console\.js\?v=11/);
 assert.match(index, /admin-extras\.js\?v=1/);
 assert.match(index, /ux-shell\.js\?v=16/);
 assert.match(catalogAdmin, /admin_creer_produit_complet/);

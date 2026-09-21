@@ -94,7 +94,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('Joel · mobile','Boutique 104','Remises d’argent autorisées');
 
   await vm.runInContext('adminJournal()',context);
-  includes('Historique des modifications','Responsabilité attribuée','Cedric','Exporter le journal','Depuis');
+  includes('Historique des modifications','Responsabilité attribuée','Cedric','Exporter le journal','Depuis','Voir les détails','class="row-action"');
 
   console.log('Recette UI Vendeur/Administrateur: OK');
 })().catch(error=>{console.error(error);process.exitCode=1});

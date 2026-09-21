@@ -59,6 +59,7 @@
 | ADMIN-08 | Cedric désactive un utilisateur ou un lieu | Un aperçu des responsabilités et autorisations concernées précède la confirmation |
 | ADMIN-09 | Cedric recherche et exporte utilisateurs, produits ou journal | Les filtres fonctionnent et le CSV est téléchargé |
 | ADMIN-10 | Cedric modifie un produit ou ajoute une référence | Le catalogue est mis à jour, le SKU est automatique et l’action est journalisée |
+| ADMIN-11 | Cedric ajoute, remplace puis supprime la photo d’une référence | Seuls JPEG, PNG et WebP de 5 Mo maximum sont acceptés ; la photo apparaît dans le catalogue puis disparaît après suppression ; chaque changement est journalisé |
 | ADMIN-11 | Cedric importe un CSV produits ou utilisateurs | Les lignes valides sont traitées et le nombre de lignes refusées est annoncé |
 | ADMIN-05 | Un Gérant appelle une RPC Admin | Refus « Administration non autorisée » |
 | ADMIN-06 | Cedric consulte les routes mobiles | Le nom « Joel · mobile » est affiché |

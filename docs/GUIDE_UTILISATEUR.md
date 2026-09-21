@@ -87,7 +87,7 @@ Le bouton **Accès** permet ensuite d’envoyer l’invitation, de renvoyer un a
 
 Les listes Utilisateurs et Produits disposent d’une recherche et de filtres. **Exporter** télécharge un fichier CSV ; **Importer** permet de remettre à jour les fiches utilisateurs exportées ou de créer plusieurs produits. Avant la désactivation d’un utilisateur ou d’un lieu, l’application résume les responsabilités et autorisations concernées.
 
-Dans **Produits**, **Modifier** permet de corriger ou désactiver un produit, d’ajouter une référence automatiquement numérotée et de modifier ses conditionnements. **Marques et catégories** permet de gérer les marques, catégories et types de produits.
+Dans **Produits**, **Modifier** permet de corriger ou désactiver un produit, d’ajouter une référence automatiquement numérotée et de modifier ses conditionnements. Le bouton **Modifier la référence** permet aussi d’ajouter, remplacer ou supprimer sa photo (JPEG, PNG ou WebP, 5 Mo maximum). La photo apparaît ensuite dans le catalogue et les demandes de stock. **Marques et catégories** permet de gérer les marques, catégories et types de produits.
 
 Dans **Contrôle**, le journal peut être filtré par texte, personne et date. **Détails** montre les informations techniques enregistrées et **Exporter le journal** produit un CSV.
 

@@ -28,6 +28,7 @@ Le client ne contient qu’une clé publique Supabase. Aucune clé `service_role
 | `admin-routes.js` | configuration des routes de stock et d’argent |
 | `catalog-ux.js` | consultation du catalogue |
 | `catalog-admin.js` | création sécurisée des produits, références et conditionnements |
+| `admin-extras.js` | modification des références et gestion de leurs photos dans Supabase Storage |
 
 ## 4. Modèle d’autorisation
 
@@ -83,6 +84,7 @@ Les RPC financières et stock utilisent un identifiant d’opération client pou
 - Les champs ont un libellé explicite ; les montants sont contrôlés côté client puis côté serveur.
 - Les indicateurs dynamiques sont annoncés aux technologies d’assistance avec `aria-live`.
 - Sous 360 px, les cartes passent sur une seule colonne ; les préférences de réduction des animations sont respectées.
+- Les photos de références sont stockées dans le bucket public `product-reference-images`. Les lectures servent au catalogue ; les écritures et suppressions sont protégées par des politiques Storage réservées à l’Administrateur global. La colonne `references_produit.photo_url` conserve l’adresse publique et chaque association ou suppression est journalisée.
 - À partir de 700 px, l’espace tablette utilise jusqu’à trois colonnes et conserve la navigation tactile inférieure.
 - À partir de 1100 px, l’espace PC utilise une navigation latérale, des listes sur deux colonnes et un tableau de bord élargi.
 - Les écrans utilisent des termes métier génériques : aucune règle ne dépend du nom d’un utilisateur ou d’une boutique.

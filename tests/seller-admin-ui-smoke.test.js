@@ -29,7 +29,7 @@ const context={
     if(table==='marques')return [{marque_id:'brand-1',nom_marque:'SAM Test',actif:true}];
     if(table==='categories_produits')return [{categorie_produit_id:'category-1',nom_categorie:'Corps',actif:true}];
     if(table==='types_produit')return [{type_produit_id:'type-1',nom_type:'Lait',actif:true}];
-    if(table==='references_produit')return [{reference_produit_id:'ref-1',produit_id:'product-1',sku_interne:'SAM-000001',libelle_reference:'Lait corps · Karité · 400 ML',actif:true}];
+    if(table==='references_produit')return [{reference_produit_id:'ref-1',produit_id:'product-1',sku_interne:'SAM-000001',libelle_reference:'Lait corps · Karité · 400 ML',photo_url:'https://example.test/lait.webp',actif:true}];
     if(table==='conditionnements_reference')return [];
     if(['flux_stock','flux_argent','recettes'].includes(table))return [];
     return [];
@@ -81,6 +81,14 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
   await vm.runInContext('adminCatalog()',context);
   includes('Lait corps','Modifier','Marques et catégories','Importer','Exporter');
+  handlersExist();
+
+  await vm.runInContext("adminEditProduct('product-1')",context);
+  includes('Modifier la référence','class="row-action"');
+  handlersExist();
+
+  await vm.runInContext("adminEditReference('ref-1','product-1')",context);
+  includes('Photo de la référence','Remplacer la photo','Supprimer la photo','image/jpeg,image/png,image/webp');
   handlersExist();
 
   vm.runInContext('adminNetworkHub()',context);

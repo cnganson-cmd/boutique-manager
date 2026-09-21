@@ -89,6 +89,8 @@ Les listes Utilisateurs et Produits disposent d’une recherche et de filtres. *
 
 Dans **Produits**, **Modifier** permet de corriger ou désactiver un produit, d’ajouter une référence automatiquement numérotée et de modifier ses conditionnements. Le bouton **Modifier la référence** permet aussi d’ajouter, remplacer ou supprimer sa photo (JPEG, PNG ou WebP, 5 Mo maximum). La photo apparaît ensuite dans le catalogue et les demandes de stock. **Marques et catégories** permet de gérer les marques, catégories et types de produits.
 
+Le **fabricant** désigne l’entreprise qui fabrique le produit. Les **fournisseurs** sont les entreprises auprès desquelles Parfumerie SAM peut l’acheter ; un produit peut en avoir plusieurs. Ces informations se configurent dans **Produits → Référentiels**. **Imports à valider** présente les propositions collectées sur le site Lana Bio Cosmetics : utilisez **Vérifier et créer** pour contrôler les informations avant création, ou **Ignorer** pour écarter une proposition. Aucun produit externe n’est ajouté automatiquement.
+
 Dans **Contrôle**, le journal peut être filtré par texte, personne et date. **Détails** montre les informations techniques enregistrées et **Exporter le journal** produit un CSV.
 
 ### Ajouter un produit

@@ -29,6 +29,7 @@ Le client ne contient qu’une clé publique Supabase. Aucune clé `service_role
 | `catalog-ux.js` | consultation du catalogue |
 | `catalog-admin.js` | création sécurisée des produits, références et conditionnements |
 | `admin-extras.js` | modification des références et gestion de leurs photos dans Supabase Storage |
+| `catalog-admin.js` | validation des imports externes et rattachement fabricants/fournisseurs |
 
 ## 4. Modèle d’autorisation
 
@@ -85,6 +86,8 @@ Les RPC financières et stock utilisent un identifiant d’opération client pou
 - Les indicateurs dynamiques sont annoncés aux technologies d’assistance avec `aria-live`.
 - Sous 360 px, les cartes passent sur une seule colonne ; les préférences de réduction des animations sont respectées.
 - Les photos de références sont stockées dans le bucket public `product-reference-images`. Les lectures servent au catalogue ; les écritures et suppressions sont protégées par des politiques Storage réservées à l’Administrateur global. La colonne `references_produit.photo_url` conserve l’adresse publique et chaque association ou suppression est journalisée.
+- `fabricants` est un référentiel lisible par le catalogue. `fournisseurs`, `produits_fournisseurs` et `candidats_import_catalogue` sont réservés à l’Administrateur global par RLS. Les mutations passent par des RPC qui revérifient le rôle et alimentent `journal_administration`.
+- Les données issues du site Lana sont conservées en statut `A_VALIDER`. La création d’un produit, de sa référence et de son SKU reste une décision explicite de l’administrateur.
 - À partir de 700 px, l’espace tablette utilise jusqu’à trois colonnes et conserve la navigation tactile inférieure.
 - À partir de 1100 px, l’espace PC utilise une navigation latérale, des listes sur deux colonnes et un tableau de bord élargi.
 - Les écrans utilisent des termes métier génériques : aucune règle ne dépend du nom d’un utilisateur ou d’une boutique.

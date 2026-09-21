@@ -79,6 +79,11 @@ button { min-height: 44px; }
 .admin-photo-preview small { font-size: 11px; }
 .visually-hidden { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
 .danger-action { color: #8a2d2d !important; border-color: #eccaca !important; background: #fff5f5 !important; }
+.supplier-fieldset { margin: 18px 0; padding: 14px; border: 1px solid var(--sam-line); border-radius: 14px; background: #fff; }
+.supplier-fieldset legend { padding: 0 6px; color: var(--sam-plum-dark); font-weight: 800; }
+.supplier-fieldset label { display: flex; align-items: center; gap: 8px; margin: 8px 0; font-weight: 600; }
+.supplier-fieldset input { width: auto; }
+.product-manufacturer { margin-top: 8px; color: var(--sam-muted); font-size: 13px; }
 .product-row > div:last-child button, .mini { min-height: 38px; margin: 3px; padding: 7px 10px; border: 1px solid var(--sam-line); border-radius: 10px; background: #f5eef2; color: var(--sam-plum); }
 .product-row > .row-action { width: auto; min-width: 112px; height: auto; min-height: 44px; padding: 10px 14px; border: 1px solid #d9c3cf; border-radius: 12px; background: #f5eef2; color: var(--sam-plum); font-size: 13px; font-weight: 800; white-space: nowrap; }
 .product-row > .row-action:hover { background: #eadde4; }

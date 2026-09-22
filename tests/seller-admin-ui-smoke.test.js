@@ -59,12 +59,16 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
   context.currentUser={user_id:'cedric',nom:'Cedric',email:'cedric@example.test',assignments:[{role:'ADMINISTRATEUR',siteId:null,site:'GLOBAL'}]};
   vm.runInContext("currentUser=globalThis.currentUser;activeContextSiteId='__global__';home()",context);
-  includes('Administration','Produits','Équipe','Boutiques et circulation','Contrôle','Navigation principale de l’administration');
-  excludes('Routes de stock','Routes financières','Rôles et accès','À traiter','Plus');
+  includes('Administration','Produits','Équipe','Boutiques et circulation','Contrôle','À traiter','Navigation principale de l’administration');
+  excludes('Routes de stock','Routes financières','Rôles et accès','Plus');
   handlersExist();
 
   await vm.runInContext('adminCrmHome()',context);
   includes('Fournisseurs','Lana Bio Cosmetics','produits · 1 références','FICHE FOURNISSEUR','Voir le catalogue');
+  handlersExist();
+
+  await vm.runInContext('adminAttentionHub()',context);
+  includes('2 actions à traiter','Fiches utilisateur à compléter','Produits importés à valider');
   handlersExist();
 
   vm.runInContext('adminConsole()',context);

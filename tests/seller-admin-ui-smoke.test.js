@@ -63,6 +63,10 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   excludes('Routes de stock','Routes financières','Rôles et accès','À traiter','Plus');
   handlersExist();
 
+  await vm.runInContext('adminCrmHome()',context);
+  includes('Fournisseurs','Lana Bio Cosmetics','produits · 1 références','FICHE FOURNISSEUR','Voir le catalogue');
+  handlersExist();
+
   vm.runInContext('adminConsole()',context);
   includes('Gérer l’entreprise','Produits','Équipe','Boutiques et circulation','Contrôle');
   handlersExist();

@@ -64,7 +64,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   handlersExist();
 
   await vm.runInContext('adminCrmHome()',context);
-  includes('Fournisseurs','Lana Bio Cosmetics','produits · 1 références','FICHE FOURNISSEUR','Voir le catalogue');
+  includes('Fournisseurs','Lana Bio Cosmetics','produits · 1 références','Dernier arrivage','FICHE FOURNISSEUR','Arrivages','Historique','Colonnes');
   handlersExist();
 
   await vm.runInContext('adminAttentionHub()',context);

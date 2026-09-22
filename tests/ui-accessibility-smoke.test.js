@@ -35,7 +35,9 @@ assert.doesNotMatch(anomalies, /Expédié par Joel|reçu par Georges|Observation
 assert.match(index, /money-ux\.js\?v=8/);
 assert.match(index, /sam-theme\.css\?v=15/);
 assert.match(index, /crm-theme\.css\?v=7/);
-assert.match(index, /mockup-parity\.css\?v=1/);
+assert.match(index, /mockup-parity\.css\?v=2/);
+assert.match(parity, /\.profile-trigger \.avatar[\s\S]*?width: 30px;[\s\S]*?border-radius: 8px;/);
+assert.match(parity, /@media \(max-width: 520px\)[\s\S]*?\.header-task \{ display: none; \}/);
 assert.match(index, /bm_theme/);
 assert.match(index, /assets\/brand\/logo\.svg/);
 assert.match(index, /catalog-admin\.js\?v=6/);

@@ -71,6 +71,10 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('2 actions à traiter','Fiches utilisateur à compléter','Produits importés à valider');
   handlersExist();
 
+  vm.runInContext('userGuide()',context);
+  includes('GUIDE UTILISATEUR','Recherche globale','Espace actif','Badge à traiter','Fournisseurs et catalogue','Besoin d’aide');
+  handlersExist();
+
   vm.runInContext('adminConsole()',context);
   includes('Gérer l’entreprise','Produits','Équipe','Boutiques et circulation','Contrôle');
   handlersExist();

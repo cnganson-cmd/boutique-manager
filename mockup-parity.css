@@ -1,0 +1,60 @@
+/* Port ciblé de la maquette validée. Les sélecteurs restent limités à la
+   coquille CRM afin de ne pas altérer les formulaires métier. */
+@media (min-width: 900px) {
+  body { min-height: 100vh; padding: 0 0 0 238px; background: #e9eeec; }
+  .app { width: 100%; max-width: none; min-height: 100vh; margin: 0; padding: 32px 34px 48px; border-radius: 0; background: var(--sam-ivory); box-shadow: none; overflow: visible; }
+  .app-header { position: sticky; z-index: 40; top: 0; width: auto; height: 76px; min-height: 76px; margin: -32px -34px 32px; padding: 0 30px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--sam-line); background: rgba(255,255,255,.98); box-shadow: none; backdrop-filter: blur(14px); }
+  .app-header > .brand { display: none; }
+  .global-search { order: 1; width: 380px; max-width: 380px; flex: 0 1 380px; }
+  .header-context { order: 2; margin-left: auto; flex: 0 0 auto; }
+  .theme-toggle { order: 3; }
+  .header-task { order: 4; }
+  .profile-trigger { order: 5; }
+  .back { order: 0; }
+  nav { position: fixed; z-index: 50; left: 0; top: 0; bottom: 0; width: 238px; height: 100vh; padding: 126px 16px 20px; display: flex; flex-direction: column; justify-content: flex-start; gap: 5px; transform: none; border: 0; border-radius: 0; background: #073f32; box-shadow: 8px 0 28px rgba(4,45,35,.14); }
+  nav::before { content: ""; position: absolute; top: 27px; left: 22px; width: 194px; height: 68px; background: url("assets/brand/logo-blanc.svg") left center / contain no-repeat; }
+  nav::after { content: "ESPACE ÉQUIPE"; position: absolute; top: 98px; left: 31px; color: #98bcb0; font-size: 9px; font-weight: 900; letter-spacing: .18em; }
+  nav > button { width: 100%; min-height: 48px; padding: 0 12px; display: grid; grid-template-columns: 27px 1fr; align-items: center; border: 0; border-radius: 9px; background: transparent; color: #b9d0c8; text-align: left; }
+  nav > button > b { display: block; color: #7fa99b; font-size: 18px; text-align: center; }
+  nav > button > span { margin: 0; color: inherit; font-size: 13px; font-weight: 750; }
+  nav > button:hover { background: rgba(255,255,255,.07); color: #fff; }
+  nav > button.active { background: #f6a31c; color: #272315; }
+  nav > button.active > b { color: inherit; }
+  nav .sidebar-help { min-height: 62px; margin-top: auto; padding: 10px; grid-template-columns: 32px 1fr; border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.07); color: #fff; }
+  nav .sidebar-help > b { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: #f6a31c; color: #2d2718; font-size: 14px; }
+  nav .sidebar-help > span { display: flex; flex-direction: column; }
+  nav .sidebar-help strong { color: #fff; font-size: 11px; }
+  nav .sidebar-help small { margin-top: 2px; color: #9fbeb4; font-size: 9px; }
+  .crm-home, .user-guide { max-width: 1240px; margin: 0 auto; }
+}
+
+html[data-theme="dark"] body { background: #0b110f; }
+html[data-theme="dark"] .app-header { background: rgba(16,23,20,.98); }
+
+.guide-basics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-bottom: 28px; }
+.guide-basics article { min-height: 106px; padding: 15px; display: grid; grid-template-columns: 38px 1fr; align-items: start; gap: 10px; border: 1px solid var(--sam-line); border-radius: 14px; background: #fff; }
+.guide-basics article > span { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 9px; background: #e7f4ee; color: var(--sam-plum); font-weight: 900; }
+.guide-basics article div { display: flex; flex-direction: column; }
+.guide-basics small { margin-top: 5px; color: var(--sam-muted); line-height: 1.4; }
+.guide-steps { display: grid; gap: 10px; }
+.guide-step { width: 100%; min-height: 76px; padding: 12px 16px; display: grid; grid-template-columns: 42px 1fr 24px; align-items: center; gap: 12px; border: 1px solid var(--sam-line); border-radius: 14px; background: #fff; color: var(--sam-ink); text-align: left; }
+.guide-step > i { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--sam-plum-dark); color: #fff; font-style: normal; font-weight: 900; }
+.guide-step > span { display: flex; flex-direction: column; }
+.guide-step small { margin-top: 4px; color: var(--sam-muted); }
+.guide-step em { color: var(--sam-plum); font-style: normal; font-weight: 900; }
+.guide-help { margin-top: 22px; padding: 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-radius: 14px; background: #073f32; color: #fff; }
+.guide-help > div { display: flex; align-items: center; gap: 12px; }
+.guide-help > div > span { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: #f6a31c; color: #2d2718; font-weight: 900; }
+.guide-help > div > div { display: flex; flex-direction: column; }
+.guide-help small { margin-top: 3px; color: #b7d3ca; }
+.guide-help button { min-height: 40px; padding: 0 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 9px; background: rgba(255,255,255,.1); color: #fff; }
+html[data-theme="dark"] .guide-basics article, html[data-theme="dark"] .guide-step { background: #17211e; }
+
+@media (max-width: 899px) {
+  .sidebar-help { display: none; }
+  .guide-basics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 520px) {
+  .guide-basics { grid-template-columns: 1fr; }
+  .guide-help { align-items: stretch; flex-direction: column; }
+}

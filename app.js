@@ -8,7 +8,7 @@ let cart=[],products=[],catalogReady=false,currentUser=null,accessToken=sessionS
 
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-function brandMark(compact=false){return `<div class="brand ${compact?'compact':''}" aria-label="Parfumerie SAM"><svg viewBox="0 0 48 48" role="img" aria-hidden="true"><path d="M18 5h12v6H18z"/><path d="M15 13h18l4 8v18c0 2.2-1.8 4-4 4H15c-2.2 0-4-1.8-4-4V21l4-8z"/><path class="brand-s" d="M29.5 22c-1.5-1.4-3.2-2-5.5-2-2.8 0-4.8 1.3-4.8 3.3 0 5 10.2 2.1 10.2 8 0 2.6-2.3 4.5-5.7 4.5-2.4 0-4.6-.8-6.2-2.4"/></svg><span><b>SAM</b>${compact?'':'<small>PARFUMERIE</small>'}</span></div>`}
+function brandMark(compact=false){return `<div class="brand ${compact?'compact':''}"><img src="assets/brand/${compact?'icone-app':'logo'}.svg" alt="Parfumerie SAM"></div>`}
 
 async function request(path,{method='GET',body,auth=false,headers:extra={}}={}){const headers={apikey:SUPABASE_KEY,'Content-Type':'application/json',...extra};if(auth&&accessToken)headers.Authorization=`Bearer ${accessToken}`;const response=await fetch(`${SUPABASE_URL}${path}`,{method,headers,body:body?JSON.stringify(body):undefined});const text=await response.text();let data=null;try{data=text?JSON.parse(text):null}catch{data=text}if(!response.ok)throw new Error(data?.message||data?.msg||data?.error_description||`Erreur ${response.status}`);return data}
 async function api(table,select='*'){return request(`/rest/v1/${table}?select=${encodeURIComponent(select)}`)}

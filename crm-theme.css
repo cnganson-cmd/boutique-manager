@@ -18,23 +18,43 @@ body { background: #edf2f0; }
 .brand.compact img { width: 42px; height: 42px; }
 
 .app-header { gap: 10px; background: rgba(255, 255, 255, .96); border-color: var(--sam-line); }
-.global-search { display: flex; align-items: center; gap: 8px; min-width: 44px; height: 44px; padding: 0 12px; border: 1px solid var(--sam-line); border-radius: 13px; background: #f4f7f6; color: var(--sam-muted); }
+.global-search { display: flex; align-items: center; gap: 8px; min-width: 44px; height: 42px; margin: 0; padding: 0 12px; border: 1px solid var(--sam-line); border-radius: 10px; background: #f8faf9; color: var(--sam-muted); }
 .global-search b { color: var(--sam-plum); font-size: 21px; }
-.global-search span { display: none; }
+.global-search input { display: none; height: 38px; margin: 0; padding: 0; border: 0; outline: 0; background: transparent; box-shadow: none; }
 .header-context { flex: 1; }
 .context-pill, .context-select { background: #e9f2ef; color: var(--sam-plum-dark); }
 .context-select select { color: var(--sam-plum-dark); }
-.header-task { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; padding: 0; border: 1px solid var(--sam-line); border-radius: 50%; background: #fff; color: var(--sam-plum); font-weight: 900; }
+.header-task { position: relative; display: grid; place-items: center; width: 40px; height: 40px; flex: 0 0 40px; padding: 0; border: 1px solid var(--sam-line); border-radius: 50%; background: #fff; color: var(--sam-plum); font-weight: 900; }
+.header-task i { position: absolute; right: 3px; top: 3px; width: 7px; height: 7px; border: 2px solid #fff; border-radius: 50%; background: var(--sam-gold); }
 .profile-trigger { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 0; background: transparent; color: var(--sam-ink); text-align: left; }
 .profile-trigger .avatar { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; border-radius: 50%; background: var(--sam-plum-dark); color: #fff; box-shadow: none; }
 .profile-copy { display: none; }
+.profile-trigger em { display: none; color: var(--sam-muted); font-style: normal; }
 
-.welcome { background: linear-gradient(130deg, #073f32, #0c604d); }
-.welcome::after { color: rgba(246, 163, 28, .11); }
-.welcome span, .welcome p, .welcome small { color: #d6ebe4; }
-.welcome small { display: block; margin-top: 14px; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-.dashboard, .card, .product-row, .pack-card, .form-card, .summary-card { border-color: var(--sam-line); box-shadow: 0 7px 24px rgba(7, 63, 50, .055); }
-.card b { background: #e9f3f0; }
+.welcome.page-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin: 4px 0 26px; padding: 0; border-radius: 0; background: transparent; color: var(--sam-ink); box-shadow: none; overflow: visible; }
+.welcome.page-head::after { display: none; }
+.welcome.page-head .eyebrow { display: block; margin-bottom: 7px; color: var(--sam-plum); font-size: 10px; font-weight: 900; letter-spacing: .13em; }
+.welcome.page-head h1 { margin: 0 0 7px; color: var(--sam-ink); font: 750 28px/1.2 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: -.025em; }
+.welcome.page-head p { margin: 0; color: var(--sam-muted); }
+.welcome.page-head > button { min-height: 40px; margin: 0; padding: 0 15px; border-radius: 9px; white-space: nowrap; }
+.dashboard, .card, .product-row, .pack-card, .form-card, .summary-card { border-color: var(--sam-line); box-shadow: 0 4px 15px rgba(7, 63, 50, .035); }
+.dashboard { display: block; margin-bottom: 26px; padding: 0; border: 0; background: transparent; box-shadow: none; }
+.dashboard-title { display: none; }
+.dashboard .metrics { gap: 14px; }
+.dashboard .metric { position: relative; min-height: 112px; padding: 18px; border: 1px solid var(--sam-line); border-radius: 14px; background: #fff; text-align: left; box-shadow: 0 4px 15px rgba(7, 63, 50, .025); }
+.dashboard .metric::after { content: "↗"; position: absolute; right: 17px; top: 17px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: #e7f4ee; color: #267258; font-weight: 900; }
+.dashboard .metric strong { margin-top: 27px; color: var(--sam-ink); font-size: 27px; }
+.dashboard .metric span { position: absolute; left: 18px; top: 16px; margin: 0; font-size: 12px; }
+.dashboard-note { margin: 8px 2px 0; }
+.section-heading { margin-top: 0; }
+.section-heading small { color: var(--sam-plum); }
+.section-heading h2 { font-size: 16px; }
+.grid { gap: 14px; }
+.card { min-height: 118px; padding: 16px; border-radius: 14px; }
+.card.wide { min-height: 118px; }
+.card b { width: 38px; height: 38px; margin-bottom: 12px; border-radius: 9px; background: #e9f3f0; }
+.card span { font-size: 14px; }
+.card small { font-size: 11px; }
 .card i { color: var(--sam-gold); }
 .card.attention { border-color: #f0d4a7; background: #fffaf1; }
 .metric { background: #edf5f2; }
@@ -46,18 +66,19 @@ button:focus-visible, a:focus-visible { outline-color: rgba(246, 163, 28, .65); 
 nav button.active { color: var(--sam-plum-dark); background: #e8f2ee; }
 
 @media (min-width: 700px) {
-  .global-search { flex: 1; max-width: 300px; justify-content: flex-start; }
-  .global-search span { display: inline; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .global-search { flex: 1; max-width: 370px; justify-content: flex-start; }
+  .global-search input { display: block; }
   .app-header .header-context { flex: 0 1 auto; }
   .profile-copy { display: flex; max-width: 120px; flex-direction: column; }
   .profile-copy strong, .profile-copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .profile-copy small { color: var(--sam-muted); font-size: 10px; }
+  .profile-trigger em { display: block; }
 }
 
 @media (min-width: 1100px) {
   body { padding: 0 0 0 238px; }
-  .app { max-width: none; min-height: 100vh; margin: 0; padding: 30px 42px 48px; border-radius: 0; box-shadow: none; }
-  .app-header { top: 0; margin: -30px -42px 28px; padding: 15px 42px; box-shadow: 0 1px 0 var(--sam-line); }
+  .app { max-width: none; min-height: 100vh; margin: 0; padding: 32px 34px 48px; border-radius: 0; box-shadow: none; }
+  .app-header { min-height: 76px; top: 0; margin: -32px -34px 32px; padding: 0 30px; box-shadow: 0 1px 0 var(--sam-line); }
   .app-header > .brand { display: none; }
   .global-search { order: 1; max-width: 420px; }
   .header-context { order: 2; margin-left: auto !important; }
@@ -65,8 +86,7 @@ nav button.active { color: var(--sam-plum-dark); background: #e8f2ee; }
   .profile-trigger { order: 4; }
   .back { order: 0; }
   .crm-home { max-width: 1240px; margin: 0 auto; }
-  .welcome { padding: 34px 38px; }
-  .welcome h1 { font-size: 38px; }
+  .welcome.page-head h1 { font-size: 28px; }
   nav { left: 0; top: 0; bottom: 0; width: 238px; padding: 126px 16px 24px; border: 0; border-radius: 0; background: linear-gradient(180deg, #073f32, #052f26); box-shadow: 8px 0 28px rgba(4, 45, 35, .14); }
   nav::before { content: ""; top: 28px; left: 22px; width: 194px; height: 68px; background: url("assets/brand/logo-blanc.svg") left center / contain no-repeat; }
   nav::after { content: "ESPACE ÉQUIPE"; top: 98px; left: 31px; color: #98bcb0; font-size: 9px; letter-spacing: .18em; }
@@ -74,7 +94,8 @@ nav button.active { color: var(--sam-plum-dark); background: #e8f2ee; }
   nav button:hover { background: rgba(255, 255, 255, .08); color: #fff; }
   nav button.active { background: var(--sam-gold); color: #342304; }
   nav button.active b { color: inherit; }
-  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .card.wide { grid-column: span 2; }
 }
 
 @media (min-width: 1500px) {
@@ -89,4 +110,8 @@ nav button.active { color: var(--sam-plum-dark); background: #e8f2ee; }
   .global-search, .header-task { width: 40px; height: 40px; min-width: 40px; flex-basis: 40px; padding: 0; justify-content: center; }
   .context-select select { max-width: 120px; }
   .profile-trigger .avatar { width: 40px; height: 40px; flex-basis: 40px; }
+  .welcome.page-head { flex-direction: column; }
+  .welcome.page-head > button { width: 100%; }
+  .welcome.page-head h1 { font-size: 23px; }
+  .dashboard .metrics { grid-template-columns: 1fr; }
 }

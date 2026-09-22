@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#073f32">
   <title>Parfumerie SAM · Espace équipe</title>
+  <script>
+    // Applique la préférence avant le rendu pour éviter un flash de thème.
+    (()=>{try{const saved=localStorage.getItem('bm_theme'),theme=saved||((matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.dataset.theme=theme}catch{document.documentElement.dataset.theme='light'}})();
+  </script>
   <link rel="stylesheet" href="styles.css?v=7">
   <link rel="stylesheet" href="sam-theme.css?v=15">
-  <link rel="stylesheet" href="crm-theme.css?v=2">
+  <link rel="stylesheet" href="crm-theme.css?v=3">
 </head>
 <body>
   <main class="app" id="app">
@@ -19,7 +23,7 @@
   <script src="app.js?v=16"></script>
   <script src="patron-anomalies.js?v=5"></script>
   <script src="admin-routes.js?v=9"></script>
-  <script src="ux-shell.js?v=20"></script>
+  <script src="ux-shell.js?v=21"></script>
   <script src="catalog-ux.js?v=4"></script>
   <script src="request-packaging-ux.js?v=5"></script>
   <script src="route-aware-requests.js?v=2"></script>

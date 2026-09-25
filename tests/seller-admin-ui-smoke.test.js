@@ -139,6 +139,11 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('Points de vente et stocks','Mouvements de stock autorisés','Remises d’argent autorisées');
   handlersExist();
 
+  await vm.runInContext('adminSites()',context);
+  includes('Points de vente et stocks','desktop-nav-only','Navigation principale de l’administration','Accueil','Stocks','Flux','Catalogue','Équipe','Paramètres');
+  assert.equal((app.innerHTML.match(/<nav\b/g)||[]).length,1,'Le menu desktop ne doit pas être dupliqué');
+  handlersExist();
+
   await vm.runInContext('adminStockRoutes()',context);
   includes('Mouvements de stock autorisés','Joel · mobile','Boutique 104','Retour');
 

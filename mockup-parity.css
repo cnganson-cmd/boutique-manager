@@ -1,6 +1,8 @@
 /* Port ciblé de la maquette validée. Les sélecteurs restent limités à la
    coquille CRM afin de ne pas altérer les formulaires métier. */
+.desktop-nav-only { display: none; }
 @media (min-width: 900px) {
+  .desktop-nav-only { display: contents; }
   body { min-height: 100vh; padding: 0 0 0 238px; background: #e9eeec; }
   .app { width: 100%; max-width: none; min-height: 100vh; margin: 0; padding: 32px 34px 48px; border-radius: 0; background: var(--sam-ivory); box-shadow: none; overflow: visible; }
   .app-header { position: sticky; z-index: 40; top: 0; width: auto; height: 76px; min-height: 76px; margin: -32px -34px 32px; padding: 0 30px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--sam-line); background: rgba(255,255,255,.98); box-shadow: none; backdrop-filter: blur(14px); }

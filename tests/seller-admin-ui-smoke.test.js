@@ -13,7 +13,7 @@ const context={
   app,REAPPRO_TYPE:'reappro-type',
   currentUser:{user_id:'seller',nom:'Vendeur test',email:'seller@example.test',assignments:[{role:'VENDEUR',siteId:'site-104',site:'Boutique 104'}]},
   sessionStorage:{getItem:()=>'',setItem:()=>{},removeItem:()=>{}},
-  esc:value=>String(value??'').replace(/[&<>"']/g,''),brandMark:()=>'<b>SAM</b>',
+  esc:value=>String(value??'').replace(/[&<>"']/g,''),brandMark:()=>'<b>SAM</b>',catalogPhoto:()=>'<img alt="Photo produit">',
   authApi:async(table)=>{
     if(table==='utilisateurs')return users;
     if(table==='sites')return sites;
@@ -38,7 +38,12 @@ const context={
     if(['flux_stock','flux_argent','recettes'].includes(table))return [];
     return [];
   },
-  request:async path=>{if(path.includes('consulter_libelles_detenteurs_accessibles'))return [];throw new Error(`Appel non simulé: ${path}`)},
+  request:async path=>{
+    if(path.includes('consulter_libelles_detenteurs_accessibles'))return [];
+    if(path.includes('consulter_arrivages_fournisseur'))return [{arrivage_fournisseur_id:'arrival-1',numero_interne:'ARR-2026-000138',numero_bon_fournisseur:'BL-LANA-1042',date_livraison:'2026-09-20',statut:'VALIDE',site_id:'site-104',site_nom:'Boutique 104',fournisseur_id:'supplier-1',fournisseur_nom:'Lana Bio Cosmetics',acteur_nom:'Yakin',nombre_references:1,quantite_recue:184,quantite_abimee:2,quantite_entree_stock:182,cree_le:'2026-09-20T09:42:00Z'}];
+    if(path.includes('consulter_lignes_arrivage_fournisseur'))return [{ligne_arrivage_fournisseur_id:'line-1',reference_produit_id:'ref-1',sku_interne:'SAM-000001',photo_url:'https://example.test/lait.webp',marque_nom:'SAM Test',produit_nom:'Lait corps',reference_libelle:'400 ML',quantite_attendue:184,quantite_recue:184,quantite_abimee:2,quantite_entree:182,commentaire:null}];
+    throw new Error(`Appel non simulé: ${path}`)
+  },
   document:{getElementById:()=>null,querySelector:()=>null,querySelectorAll:()=>[]},
   console,Promise,setTimeout,crypto:{randomUUID:()=> 'operation-test'},alert:()=>{},confirm:()=>true,
   profile:()=>{},catalog:()=>{},cart:[],products:[],catalogReady:true,pendingRequestOperationId:null
@@ -64,7 +69,19 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   handlersExist();
 
   await vm.runInContext('adminCrmHome()',context);
-  includes('Fournisseurs','Lana Bio Cosmetics','produits · 1 références','Dernier arrivage','FICHE FOURNISSEUR','Arrivages','Historique','Colonnes');
+  includes('Fournisseurs','Lana Bio Cosmetics','produits · 1 références','Dernier arrivage','20 sept. 2026','ARR-2026-000138','FICHE FOURNISSEUR','Arrivages <i>1</i>','BL-LANA-1042','Historique','Colonnes');
+  handlersExist();
+
+  await vm.runInContext("adminSupplierArrivals('supplier-1')",context);
+  includes('FOURNISSEUR · ARRIVAGES','BL fournisseur BL-LANA-1042','Boutique 104','182 unité(s) entrée(s)','ÉCART','Voir le détail');
+  handlersExist();
+
+  await vm.runInContext("adminSupplierArrivalDetail(0,'supplier-1')",context);
+  includes('BL BL-LANA-1042','Enregistré par','Yakin','SAM-000001','Lait corps','abîmé 2','+182');
+  handlersExist();
+
+  await vm.runInContext("adminSupplierHistory('supplier-1')",context);
+  includes('FOURNISSEUR · HISTORIQUE','Aucune modification trouvée');
   handlersExist();
 
   await vm.runInContext('adminAttentionHub()',context);

@@ -140,7 +140,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   handlersExist();
 
   await vm.runInContext('adminSites()',context);
-  includes('Points de vente et stocks','desktop-nav-only','Navigation principale de l’administration','Accueil','Stocks','Flux','Catalogue','Équipe','Paramètres');
+  includes('Points de vente et stocks','persistent-nav','Navigation principale de l’administration','Accueil','Stocks','Flux','Catalogue','Équipe','Paramètres');
   assert.equal((app.innerHTML.match(/<nav\b/g)||[]).length,1,'Le menu desktop ne doit pas être dupliqué');
   handlersExist();
 

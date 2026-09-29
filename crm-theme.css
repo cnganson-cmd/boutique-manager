@@ -247,6 +247,12 @@ nav button { position: relative; }
 .destocker-priorities, .destocker-activity { margin-top: 18px; overflow: hidden; border: 1px solid var(--sam-line); border-radius: 16px; background: #fff; box-shadow: 0 10px 28px rgba(20, 51, 43, .05); }
 .destocker-priorities .section-heading, .destocker-activity .section-heading { min-height: 68px; margin: 0; padding: 14px 17px; border-bottom: 1px solid var(--sam-line); background: #fafcfb; }
 .destocker-priorities .section-heading button { min-height: 36px; padding: 0 12px; border-color: #bad1c8; background: #fff; color: var(--sam-plum); font-weight: 800; }
+.patron-crm { margin-top: 22px; }
+.patron-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.patron-crm-columns { display: grid; margin-top: 24px; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: 18px; align-items: start; }
+.patron-decisions, .patron-activity { overflow: hidden; border: 1px solid var(--sam-line); border-radius: 16px; background: #fff; box-shadow: 0 10px 28px rgba(20, 51, 43, .05); }
+.patron-decisions .section-heading, .patron-activity .section-heading { min-height: 72px; margin: 0; padding: 15px 18px; border-bottom: 1px solid var(--sam-line); background: #fafcfb; }
+.patron-decisions .section-heading button { min-height: 36px; padding: 0 12px; border-color: #bad1c8; background: #fff; color: var(--sam-plum); font-weight: 800; }
 
 /* Le thème sombre conserve le vert SAM et augmente les contrastes des écrans métier. */
 html[data-theme="dark"] {
@@ -333,6 +339,10 @@ html[data-theme="dark"] .destocker-priorities,
 html[data-theme="dark"] .destocker-activity,
 html[data-theme="dark"] .destocker-priorities .section-heading,
 html[data-theme="dark"] .destocker-activity .section-heading { background: #17211e; border-color: var(--sam-line); }
+html[data-theme="dark"] .patron-decisions,
+html[data-theme="dark"] .patron-activity,
+html[data-theme="dark"] .patron-decisions .section-heading,
+html[data-theme="dark"] .patron-activity .section-heading { background: #17211e; border-color: var(--sam-line); }
 html[data-theme="dark"] .role-assignment,
 html[data-theme="dark"] .network-summary,
 html[data-theme="dark"] .reference-photo,
@@ -366,6 +376,8 @@ html[data-theme="dark"] nav { background: linear-gradient(180deg, #073f32, #041f
   .manager-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .manager-crm-columns { grid-template-columns: 1fr; }
   .destocker-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .patron-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .patron-crm-columns { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 1100px) {
@@ -434,4 +446,5 @@ html[data-theme="dark"] nav { background: linear-gradient(180deg, #073f32, #041f
   .manager-task-row > button { width: 100%; }
   .destocker-kpis { gap: 8px; }
   .destocker-kpis .kpi-card { min-height: 126px; }
+  .patron-kpis { grid-template-columns: 1fr; gap: 8px; }
 }

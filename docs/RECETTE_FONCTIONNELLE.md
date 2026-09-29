@@ -34,6 +34,9 @@
 | PATRON-03 | Samuel ouvre « Flux de stock » | Historique réseau avec source, destination, statut et détail |
 | PATRON-04 | Samuel ouvre « Mouvements d’argent » | Retraits, remises et décisions financières sont visibles |
 | PATRON-05 | Samuel ouvre « Anomalies de stock » | Les anomalies à traiter ou l’état vide sont affichés clairement |
+| PATRON-06 | Samuel ouvre son accueil | Le stock total, les sites actifs, les anomalies et les décisions financières sont synthétisés avant les raccourcis |
+| PATRON-07 | Samuel consulte les priorités du réseau | Les anomalies, décisions financières et flux ouverts depuis plus de 48 heures sont étiquetés et actionnables |
+| PATRON-08 | Samuel consulte l’activité du réseau | Les derniers flux de stock et mouvements financiers sont présentés chronologiquement avec les détenteurs concernés |
 | DESTOCK-01 | Joel ouvre son accueil mobile | Aucun sélecteur de site et uniquement les fonctions Déstockeur |
 | DESTOCK-02 | Joel prépare et expédie un retour | Route nominative vers Boutique 104 et stock mobile débité |
 | DESTOCK-03 | Georges reçoit puis Joel confirme | Stock boutique crédité et flux `CLOTURE` |

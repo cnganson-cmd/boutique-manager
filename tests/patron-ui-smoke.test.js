@@ -3,6 +3,7 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 
 const app={innerHTML:''};
+const uiNodes={};
 const stockRows=[
   {detenteur_stock_id:'holder-104',type_detenteur:'SITE',detenteur_nom:'Boutique 104',detenteur_actif:true,reference_produit_id:'ref-1',marque_nom:'SAM',produit_nom:'Parfum test',variante:'Femme',reference_libelle:'100 ml',quantite:7},
   {detenteur_stock_id:'holder-joel',type_detenteur:'DESTOCKEUR',detenteur_nom:'Joel',detenteur_actif:true,reference_produit_id:'ref-2',marque_nom:'SAM',produit_nom:'Brume test',variante:'',reference_libelle:'50 ml',quantite:3}
@@ -30,7 +31,7 @@ const context={
     if(table==='flux_argent')return [{flux_argent_id:'money-1',type_flux:'REMISE',montant_cash:5000,montant_mobile_money:2000,statut:'CLOTURE',motif:'Recette',cree_le:'2026-09-20T08:00:00Z'}];
     return [];
   },
-  document:{getElementById:()=>null,querySelector:()=>null},
+  document:{getElementById:id=>uiNodes[id]||(uiNodes[id]={textContent:'',innerHTML:'',value:''}),querySelector:()=>null,querySelectorAll:()=>[]},
   console,
   Promise,
   setTimeout,
@@ -48,7 +49,14 @@ function includes(...labels){for(const label of labels)assert.ok(app.innerHTML.i
 
 (async()=>{
   vm.runInContext('home()',context);
-  includes('Stocks par détenteur','Flux de stock','Anomalies de stock','Mouvements d’argent');
+  includes('Stock du réseau','Sites actifs','Anomalies ouvertes','Décisions financières','DÉCISIONS À PRENDRE','ACTIVITÉ DU RÉSEAU','Stocks par détenteur','Flux de stock','Anomalies de stock','Mouvements d’argent');
+  await new Promise(resolve=>setTimeout(resolve,0));
+  assert.equal(uiNodes['metric-network-stock'].textContent,'10 unités');
+  assert.equal(uiNodes['metric-stock-alerts'].textContent,'0');
+  assert.equal(uiNodes['metric-money-actions'].textContent,'0');
+  assert.match(uiNodes['patron-home-tasks'].innerHTML,/À SURVEILLER/);
+  assert.match(uiNodes['patron-home-tasks'].innerHTML,/flux ancien/);
+  assert.match(uiNodes['patron-home-activity'].innerHTML,/Joel · mobile → Boutique 104/);
 
   await vm.runInContext('patronStocks()',context);
   includes('Boutique 104','Joel','SITE PHYSIQUE','ACTIVITÉ MOBILE');

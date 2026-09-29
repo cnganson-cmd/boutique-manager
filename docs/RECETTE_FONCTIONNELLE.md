@@ -72,8 +72,9 @@
 | ADMIN-14 | Cedric importe un CSV produits ou utilisateurs | Les lignes valides sont traitées et le nombre de lignes refusées est annoncé |
 | ADMIN-15 | Un Gérant appelle une RPC Admin | Refus « Administration non autorisée » |
 | ADMIN-16 | Cedric consulte les routes mobiles | Le nom « Joel · mobile » est affiché |
-| ADMIN-17 | Cedric ouvre « À traiter » | Le badge et les cartes reprennent les anomalies réellement calculées sur les utilisateurs, le catalogue, les fournisseurs, les lieux et les routes actifs |
+| ADMIN-17 | Cedric ouvre « À traiter » | Le badge compte les sujets actifs ; la page distingue les sujets du nombre d’éléments concernés et les regroupe par Équipe, Catalogue et Boutiques et flux |
 | ADMIN-18 | Cedric clique sur une alerte | La page de correction correspondante s’ouvre ; les alertes de profils et de comptes appliquent directement le bon filtre |
+| ADMIN-19 | Cedric consulte la priorité d’une alerte | Une étiquette textuelle et colorée indique « Urgent », « À corriger », « À compléter » ou « À valider » ; les contrôles conformes restent repliés en bas de page |
 
 ## Contrôle technique des arrivages fournisseurs
 

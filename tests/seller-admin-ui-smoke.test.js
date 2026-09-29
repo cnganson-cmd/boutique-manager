@@ -85,7 +85,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   handlersExist();
 
   await vm.runInContext('adminAttentionHub()',context);
-  includes('2 actions à traiter','Fiches utilisateur à compléter','Produits importés à valider');
+  includes('3 actions à traiter','1 · Fiches utilisateur à compléter','1 · Utilisateurs sans responsabilité','1 · Produits importés à valider','Compteurs calculés');
   handlersExist();
 
   vm.runInContext('userGuide()',context);

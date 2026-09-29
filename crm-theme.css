@@ -242,6 +242,11 @@ nav button { position: relative; }
 .manager-activity-list article div { display: flex; min-width: 0; flex-direction: column; }
 .manager-activity-list article strong { font-size: 12px; }
 .manager-activity-list article small { margin-top: 3px; overflow: hidden; color: var(--sam-muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.destocker-crm { max-width: 880px; margin: 22px auto 0; }
+.destocker-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.destocker-priorities, .destocker-activity { margin-top: 18px; overflow: hidden; border: 1px solid var(--sam-line); border-radius: 16px; background: #fff; box-shadow: 0 10px 28px rgba(20, 51, 43, .05); }
+.destocker-priorities .section-heading, .destocker-activity .section-heading { min-height: 68px; margin: 0; padding: 14px 17px; border-bottom: 1px solid var(--sam-line); background: #fafcfb; }
+.destocker-priorities .section-heading button { min-height: 36px; padding: 0 12px; border-color: #bad1c8; background: #fff; color: var(--sam-plum); font-weight: 800; }
 
 /* Le thème sombre conserve le vert SAM et augmente les contrastes des écrans métier. */
 html[data-theme="dark"] {
@@ -324,6 +329,10 @@ html[data-theme="dark"] .manager-task-row,
 html[data-theme="dark"] .manager-task-row > button { background: #17211e; border-color: var(--sam-line); }
 html[data-theme="dark"] .manager-task-row > button { color: #82d8bb; }
 html[data-theme="dark"] .manager-activity-list article > span { background: #20342d; color: #82d8bb; }
+html[data-theme="dark"] .destocker-priorities,
+html[data-theme="dark"] .destocker-activity,
+html[data-theme="dark"] .destocker-priorities .section-heading,
+html[data-theme="dark"] .destocker-activity .section-heading { background: #17211e; border-color: var(--sam-line); }
 html[data-theme="dark"] .role-assignment,
 html[data-theme="dark"] .network-summary,
 html[data-theme="dark"] .reference-photo,
@@ -356,6 +365,7 @@ html[data-theme="dark"] nav { background: linear-gradient(180deg, #073f32, #041f
   .task-action { grid-column: 2; width: fit-content; min-width: 0; }
   .manager-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .manager-crm-columns { grid-template-columns: 1fr; }
+  .destocker-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (min-width: 1100px) {
@@ -422,4 +432,6 @@ html[data-theme="dark"] nav { background: linear-gradient(180deg, #073f32, #041f
   .manager-kpis { grid-template-columns: 1fr; }
   .manager-task-row { padding: 15px 14px 15px 18px; grid-template-columns: 1fr; gap: 8px; }
   .manager-task-row > button { width: 100%; }
+  .destocker-kpis { gap: 8px; }
+  .destocker-kpis .kpi-card { min-height: 126px; }
 }

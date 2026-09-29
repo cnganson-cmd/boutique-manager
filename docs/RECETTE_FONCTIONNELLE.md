@@ -40,6 +40,9 @@
 | DESTOCK-04 | Boutique 104 enregistre une remise de Joel | Joel peut confirmer séparément cash et Mobile Money |
 | DESTOCK-05 | Ajouter un rôle ou un site à Joel | Refus automatique par la base |
 | DESTOCK-06 | Configurer une route financière boutique → Joel | Refus automatique par la base |
+| DESTOCK-07 | Joel ouvre son accueil | Le stock mobile, les tâches, les réceptions et les remises à confirmer sont synthétisés sans sélecteur de site |
+| DESTOCK-08 | Joel consulte « À faire maintenant » | Les retours, réceptions, confirmations et remises sont étiquetés et ouvrent directement l’action correspondante |
+| DESTOCK-09 | Joel consulte son activité mobile | Seuls ses mouvements de stock, flux et remises récents sont affichés |
 | GERANT-01 | Georges ouvre Boutique 104 | Recette, demande, réception, retour et transfert accessibles |
 | GERANT-02 | Georges demande un réapprovisionnement | Les deux stocks sources sont nommés et sélectionnables |
 | GERANT-03 | Georges contrôle un arrivage | Quantités reçues enregistrées et stock boutique crédité |

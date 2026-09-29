@@ -45,6 +45,9 @@
 | GERANT-03 | Georges contrôle un arrivage | Quantités reçues enregistrées et stock boutique crédité |
 | GERANT-04 | Georges déclare une recette | Cash et Mobile Money séparés, reprise idempotente |
 | GERANT-05 | Georges demande un retrait, Samuel valide | Retrait `CLOTURE` après validation Patron |
+| GERANT-06 | Georges ouvre l’accueil de Boutique 104 | La recette du jour, les tâches, les réceptions en transit et les flux en cours sont synthétisés avant les actions rapides |
+| GERANT-07 | Georges consulte « À traiter aujourd’hui » | Les recettes absentes, réceptions, opérations de caisse et écarts sont étiquetés et ouvrent directement l’action correspondante |
+| GERANT-08 | Georges consulte l’activité de la boutique | Les derniers flux, recettes et mouvements de caisse autorisés pour Boutique 104 sont affichés chronologiquement |
 | MAG-01 | Yakin change de site | Ses trois stocks sont disponibles dans le sélecteur |
 | MAG-02 | Yakin prépare et expédie une demande | Stock source débité et flux `EN_TRANSIT` |
 | MAG-03 | Yakin confirme le contrôle de Georges | Flux conforme terminé en `CLOTURE` |

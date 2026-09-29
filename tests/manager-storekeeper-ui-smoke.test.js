@@ -3,6 +3,7 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 
 const app={innerHTML:''},holder104='holder-104',holderDepot='holder-depot',holderWarehouse='holder-warehouse';
+const uiNodes={};
 let actor='manager';
 let submittedSupplierArrival=null;
 const routes=[
@@ -42,7 +43,7 @@ const context={
     ];
     throw new Error(`Appel non simulé: ${path}`);
   },
-  document:{getElementById:()=>null,querySelector:()=>null,querySelectorAll:()=>[]},
+  document:{getElementById:id=>uiNodes[id]||(uiNodes[id]={textContent:'',innerHTML:'',value:''}),querySelector:()=>null,querySelectorAll:()=>[]},
   console,Promise,setTimeout,crypto:{randomUUID:()=> 'operation-test'},alert:()=>{},confirm:()=>true,
   profile:()=>{},catalog:()=>{},
   cart:[],products:[],catalogReady:true,pendingRequestOperationId:null
@@ -56,8 +57,14 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
 (async()=>{
   vm.runInContext("activeContextSiteId='site-104';home()",context);
-  includes('Boutique 104','Recette et caisse','Demander du stock','Contrôler un arrivage','Retourner du stock','Transférer du stock');
+  includes('Boutique 104','Recette aujourd’hui','À traiter','Réceptions en transit','Flux en cours','À TRAITER AUJOURD’HUI','ACTIVITÉ DE LA BOUTIQUE','Actions rapides','Déclarer la recette','Recette et caisse','Demander du stock','Contrôler un arrivage','Retourner du stock','Transférer du stock');
   handlersExist();
+  await new Promise(resolve=>setTimeout(resolve,0));
+  assert.equal(uiNodes['metric-today-revenue'].textContent,'0 F');
+  assert.equal(uiNodes['metric-manager-actions'].textContent,'2');
+  assert.match(uiNodes['manager-home-tasks'].innerHTML,/À DÉCLARER/);
+  assert.match(uiNodes['manager-home-tasks'].innerHTML,/À CONTRÔLER/);
+  assert.match(uiNodes['manager-home-activity'].innerHTML,/Réapprovisionnement reçu/);
 
   const requestRoutes=await vm.runInContext('loadRequestRoutes()',context);
   assert.deepEqual(requestRoutes.map(route=>route.sourceName).sort(),['Dépôt Marché Central','Entrepôt Marché Kol Bikok'].sort());

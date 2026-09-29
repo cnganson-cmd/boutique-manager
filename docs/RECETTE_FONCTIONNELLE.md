@@ -48,6 +48,13 @@
 | MAG-01 | Yakin change de site | Ses trois stocks sont disponibles dans le sélecteur |
 | MAG-02 | Yakin prépare et expédie une demande | Stock source débité et flux `EN_TRANSIT` |
 | MAG-03 | Yakin confirme le contrôle de Georges | Flux conforme terminé en `CLOTURE` |
+| MAG-04 | Yakin choisit un fournisseur pour un nouvel arrivage | Seules les références actives rattachées à ce fournisseur sont proposées |
+| MAG-05 | Yakin valide un arrivage de 9 unités dont 2 abîmées | Un numéro `ARR-AAAA-NNNNNN` est généré et 7 unités entrent en stock |
+| MAG-06 | Yakin consulte l'arrivage validé | Le bon fournisseur, le numéro interne, le site, l'auteur et le détail des quantités sont visibles |
+| MAG-07 | Yakin réutilise le même identifiant d'opération après une coupure réseau | Aucun doublon n'est créé et le résultat de la première validation est renvoyé |
+| MAG-08 | Yakin saisit une seconde fois le même numéro de bon pour le même fournisseur, avec une casse ou des espaces différents | Refus automatique « Ce bon de livraison fournisseur a déjà été enregistré » |
+| MAG-09 | Une référence non rattachée au fournisseur est envoyée directement à l'API | Refus automatique par la base, sans arrivage ni mouvement de stock résiduel |
+| MAG-10 | L'arrivage est validé | Une entrée `ENTREE_FOURNISSEUR` par référence stockée et un événement `ARRIVAGE_FOURNISSEUR_VALIDE` sont journalisés |
 | VENTE-01 | Le Vendeur ouvre son accueil | Recette, demande, réception et catalogue uniquement |
 | VENTE-02 | Le Vendeur déclare une recette | Cash et Mobile Money enregistrés séparément |
 | VENTE-03 | Le Vendeur tente un retrait | Refus automatique, action réservée au Gérant |
@@ -62,9 +69,25 @@
 | ADMIN-11 | Cedric ajoute, remplace puis supprime la photo d’une référence | Seuls JPEG, PNG et WebP de 5 Mo maximum sont acceptés ; la photo apparaît dans le catalogue puis disparaît après suppression ; chaque changement est journalisé |
 | ADMIN-12 | Cedric crée un fabricant et un fournisseur puis les rattache à un produit | Le fabricant est visible sur la fiche catalogue, les fournisseurs restent réservés à l’administration et l’action est journalisée |
 | ADMIN-13 | Cedric ouvre les imports Lana Bio | Les propositions sont en statut « À valider » et aucune n’est créée sans l’action « Vérifier et créer » |
-| ADMIN-11 | Cedric importe un CSV produits ou utilisateurs | Les lignes valides sont traitées et le nombre de lignes refusées est annoncé |
-| ADMIN-05 | Un Gérant appelle une RPC Admin | Refus « Administration non autorisée » |
-| ADMIN-06 | Cedric consulte les routes mobiles | Le nom « Joel · mobile » est affiché |
+| ADMIN-14 | Cedric importe un CSV produits ou utilisateurs | Les lignes valides sont traitées et le nombre de lignes refusées est annoncé |
+| ADMIN-15 | Un Gérant appelle une RPC Admin | Refus « Administration non autorisée » |
+| ADMIN-16 | Cedric consulte les routes mobiles | Le nom « Joel · mobile » est affiché |
+
+## Contrôle technique des arrivages fournisseurs
+
+La recette de la base est exécutée dans une transaction dédiée, puis annulée avec `ROLLBACK`. Elle doit vérifier ensemble :
+
+1. la génération du numéro interne SAM et la conservation du numéro du bon fournisseur ;
+2. le calcul `quantité entrée = quantité reçue - quantité abîmée` ;
+3. la variation exacte de `stocks_courants` ;
+4. la création du mouvement `ENTREE_FOURNISSEUR` lié à l'arrivage et à sa ligne ;
+5. la création de l'événement `ARRIVAGE_FOURNISSEUR_VALIDE` dans le journal d'administration ;
+6. l'idempotence de l'identifiant d'opération client ;
+7. le refus d'un doublon de bon fournisseur, sans distinction de casse ni d'espaces périphériques ;
+8. le refus d'une référence non rattachée au fournisseur sélectionné ;
+9. l'absence de toute donnée de test après le `ROLLBACK`.
+
+Dernière exécution en Dev le 29 septembre 2026 : les 9 contrôles sont conformes. Le cas quantitatif testé a reçu 9 unités, signalé 2 unités abîmées et produit une variation de stock de 7 unités. Aucun arrivage de test n'a été conservé.
 
 ## Critères de sortie Dev
 

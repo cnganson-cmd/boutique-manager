@@ -68,6 +68,8 @@ Le point de vente physique autorisé saisit le montant reçu. Joel ouvre ensuite
 
 Samuel utilise la vue globale pour suivre les stocks de tous les détenteurs, les flux du réseau, les anomalies et les mouvements financiers. « Stocks par détenteur » affiche les sites physiques et les activités mobiles ; un clic ouvre le détail des produits et quantités. Il valide ou refuse les retraits et arbitre les anomalies qui ne peuvent plus être corrigées par les acteurs opérationnels.
 
+Pour contrôler une opération de bout en bout, ouvrir **Flux et historique**, retrouver le trajet concerné, puis vérifier successivement la source, la destination, le statut et les montants ou quantités. Le Patron voit l’ensemble du réseau ; les acteurs opérationnels restent limités à leurs sites ou à leur activité mobile.
+
 ## Administrateur — exemple Cedric
 
 Cedric retrouve quatre espaces simples dans l’administration : **Produits**, **Équipe**, **Boutiques et circulation** et **Contrôle**.

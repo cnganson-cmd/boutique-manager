@@ -80,6 +80,7 @@ Les RPC financières et stock utilisent un identifiant d’opération client pou
 - La clé `service_role` n’est jamais envoyée au navigateur. La fonction Edge `admin-user-access` vérifie le JWT, appelle `est_administrateur_global_courant()` dans le contexte de l’appelant, puis utilise le client privilégié uniquement pour l’opération Auth ciblée.
 - Accès directs refusés aux tables comptables internes.
 - RPC `SECURITY DEFINER` limitées par des contrôles métier internes et des grants explicites.
+- La lecture de `mouvements_argent` est bornée au détenteur contrôlé par l’acteur. Pour les anciennes lignes, le repli par `site_id` est corrélé au mouvement courant ; les lignes historiques ont été rétro-rattachées à leur détenteur physique.
 - `consulter_libelles_detenteurs_accessibles()` ne retourne que les détenteurs directement reliés aux sites ou à l’activité mobile de l’utilisateur ; l’annuaire complet reste fermé.
 - Exclusivité du déstockeur protégée par la base.
 - Journal d’administration conservé pour les changements sensibles.
@@ -91,6 +92,8 @@ Les RPC financières et stock utilisent un identifiant d’opération client pou
 3. Contrôler le statut du flux et son historique événementiel.
 4. Tester une correction dans une transaction avec `ROLLBACK`.
 5. Exécuter les advisors Supabase après toute modification DDL/RLS.
+
+Le linter Supabase peut signaler les RPC `SECURITY DEFINER` exposées aux utilisateurs authentifiés. Dans cette architecture, elles constituent volontairement l’API métier : chaque fonction sensible recalcule l’utilisateur depuis `auth.uid()`, vérifie son rôle ou son action et ne reçoit jamais l’acteur comme autorité fournie par le navigateur. Toute nouvelle RPC doit conserver ces contrôles et un `search_path` vide.
 
 ## 9. Principes UI et accessibilité
 

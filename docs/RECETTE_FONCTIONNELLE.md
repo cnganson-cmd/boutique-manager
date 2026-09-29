@@ -84,6 +84,16 @@
 | ADMIN-17 | Cedric ouvre « À traiter » | Le badge compte les sujets actifs ; la page distingue les sujets du nombre d’éléments concernés et les regroupe par Équipe, Catalogue et Boutiques et flux |
 | ADMIN-18 | Cedric clique sur une alerte | La page de correction correspondante s’ouvre ; les alertes de profils et de comptes appliquent directement le bon filtre |
 | ADMIN-19 | Cedric consulte la priorité d’une alerte | Une étiquette textuelle et colorée indique « Urgent », « À corriger », « À compléter » ou « À valider » ; les contrôles conformes restent repliés en bas de page |
+| E2E-01 | Georges demande du stock, Yakin prépare et expédie, Georges réceptionne, Yakin confirme, Samuel consulte l’historique | Le flux suit `DEMANDE` → `EN_TRAITEMENT` → `EN_TRANSIT` → `A_CONFIRMER_MAGASINIER` → `CLOTURE` ; chaque acteur ne voit et n’exécute que son étape |
+| E2E-02 | Joel prépare un retour, Boutique 104 réceptionne, Joel confirme, puis la boutique enregistre sa remise d’argent et Samuel contrôle | Le stock mobile est débité, le stock physique crédité, le retour est clôturé et la remise reste dirigée uniquement vers le point physique autorisé |
+| E2E-03 | Un acteur tente d’ouvrir un flux, un mouvement financier ou un détenteur hors de son périmètre | La base ne retourne aucune donnée et les RPC refusent toute transition non autorisée |
+| E2E-04 | Les parcours E2E sont ouverts sur téléphone, tablette et PC | La navigation principale reste disponible ; les tâches, étiquettes et actions restent lisibles sans défilement horizontal |
+
+## Contrôle inter-rôles du 29 septembre 2026
+
+L’audit en Dev confirme l’exclusivité de Joel, l’absence de détenteur incohérent, l’absence de route financière vers un mobile, l’absence de route sur elle-même et l’absence de flux de stock sans ligne. Les 11 flux de stock et les 7 flux financiers présents respectent ces invariants.
+
+La revue RLS a identifié puis corrigé un repli historique mal corrélé dans `mouvements_argent_select`. Les 12 anciens mouvements concernés sont maintenant rattachés à leur détenteur physique et la politique compare explicitement le site du détenteur au site du mouvement courant. Après migration : zéro mouvement historique sans détenteur et zéro occurrence de l’ancienne condition.
 
 ## Contrôle technique des arrivages fournisseurs
 

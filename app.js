@@ -1,8 +1,13 @@
 // Socle client : session Supabase, appels Data API, identité métier et catalogue.
 // Les autorisations réelles restent contrôlées par PostgreSQL/RLS et les RPC.
 const app=document.querySelector('#app');
-const SUPABASE_URL='https://cvaysurwzkphmsvqujab.supabase.co';
-const SUPABASE_KEY='sb_publishable_EvO6xjIFQH74h-p7hXLQ-Q_oEmvcWCo';
+// La cible Supabase est injectée par la page (DEV ou RECETTE). Garder cette
+// configuration hors de la logique métier empêche les deux environnements de
+// partager leurs données tout en conservant exactement la même application.
+const SUPABASE_URL=window.BM_CONFIG?.supabaseUrl;
+const SUPABASE_KEY=window.BM_CONFIG?.supabaseKey;
+const APP_ENV=window.BM_CONFIG?.environment||'DEV';
+if(!SUPABASE_URL||!SUPABASE_KEY)throw new Error('Configuration de l’environnement absente');
 const REAPPRO_TYPE='1f51c270-d2f1-4ea0-a22d-5a70579b6e7b';
 let cart=[],products=[],catalogReady=false,currentUser=null,accessToken=sessionStorage.getItem('bm_access_token')||'',pendingRequestOperationId=null;
 

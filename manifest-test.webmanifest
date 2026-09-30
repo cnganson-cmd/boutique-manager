@@ -1,0 +1,14 @@
+{
+  "name": "Parfumerie SAM · Recette",
+  "short_name": "SAM Recette",
+  "description": "Environnement de recette de Parfumerie SAM.",
+  "start_url": "./test.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8faf9",
+  "theme_color": "#073f32",
+  "orientation": "any",
+  "icons": [
+    {"src":"assets/brand/icone-app.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

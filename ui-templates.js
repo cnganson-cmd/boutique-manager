@@ -1,0 +1,6 @@
+// Gabarits communs : le métier fournit le contenu, le socle garantit une
+// hiérarchie visuelle et des actions cohérentes sur tous les profils.
+function uiPageHead({eyebrow,title,description='',action=''}){return `<header class="page-head ui-page-head"><div><span class="eyebrow">${eyebrow}</span><h1>${title}</h1>${description?`<p>${description}</p>`:''}</div>${action}</header>`}
+function uiActionRow({eyebrow='',title,description='',meta='',actionLabel='Ouvrir',action,priority=''}){return `<article class="product-row ui-action-row ${priority}"><div class="grow">${eyebrow?`<small>${eyebrow}</small>`:''}<strong>${title}</strong>${description?`<span>${description}</span>`:''}${meta?`<small>${meta}</small>`:''}</div><button class="row-action" onclick="${action}">${actionLabel}<span aria-hidden="true">→</span></button></article>`}
+function uiStat(label,value,tone=''){return `<div class="ui-stat ${tone}"><small>${label}</small><strong>${value}</strong></div>`}
+function uiDecisionPage({head,summary='',timeline='',form}){return `<main class="ui-decision-page">${head}<div class="ui-decision-grid"><div><section class="ui-panel ui-summary-panel">${summary}</section>${timeline?`<section class="ui-panel ui-timeline-panel">${timeline}</section>`:''}</div><section class="ui-panel ui-decision-panel">${form}</section></div></main>`}

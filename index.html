@@ -10,8 +10,8 @@
     (()=>{try{const saved=localStorage.getItem('bm_theme'),theme=saved||((matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');document.documentElement.dataset.theme=theme}catch{document.documentElement.dataset.theme='light'}})();
   </script>
   <link rel="stylesheet" href="styles.css?v=7">
-  <link rel="stylesheet" href="sam-theme.css?v=15">
-  <link rel="stylesheet" href="crm-theme.css?v=11">
+  <link rel="stylesheet" href="sam-theme.css?v=16">
+  <link rel="stylesheet" href="crm-theme.css?v=12">
   <link rel="stylesheet" href="mockup-parity.css?v=4">
 </head>
 <body>
@@ -22,10 +22,11 @@
     </div>
   </main>
   <script src="app.js?v=16"></script>
-  <script src="patron-anomalies.js?v=5"></script>
+  <script src="ui-templates.js?v=1"></script>
+  <script src="patron-anomalies.js?v=6"></script>
   <script src="admin-routes.js?v=9"></script>
   <script src="ux-shell.js?v=31"></script>
-  <script src="catalog-ux.js?v=4"></script>
+  <script src="catalog-ux.js?v=5"></script>
   <script src="request-packaging-ux.js?v=5"></script>
   <script src="route-aware-requests.js?v=2"></script>
   <script src="stock-flow-ux.js?v=3"></script>

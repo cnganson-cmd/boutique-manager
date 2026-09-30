@@ -41,7 +41,7 @@ const context={
 };
 context.window=context;
 vm.createContext(context);
-for(const file of ['ux-shell.js','flow-inboxes.js','patron-oversight.js','patron-anomalies.js','money-ux.js']){
+for(const file of ['ui-templates.js','ux-shell.js','flow-inboxes.js','patron-oversight.js','patron-anomalies.js','money-ux.js']){
   vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 }
 

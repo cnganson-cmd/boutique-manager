@@ -19,6 +19,7 @@ Le client ne contient qu’une clé publique Supabase. Aucune clé `service_role
 |---|---|
 | `app.js` | session, appels HTTP, chargement utilisateur et catalogue |
 | `ux-shell.js` | contexte global/site/mobile, accueil par rôle et navigation |
+| `ui-templates.js` | gabarits communs d’en-tête, ligne d’action et page de décision |
 | `stock-flow-ux.js` | création des retours, transferts et réapprovisionnements |
 | `supplier-arrivals-ux.js` | réception des grosses livraisons fournisseur et consultation des bons |
 | `flow-inboxes.js` | boîtes de traitement, réception et confirmation du stock |
@@ -108,6 +109,7 @@ Le linter Supabase peut signaler les RPC `SECURITY DEFINER` exposées aux utilis
 - À partir de 700 px, l’espace tablette utilise jusqu’à trois colonnes et conserve la navigation tactile inférieure.
 - À partir de 1100 px, l’espace PC utilise une navigation latérale, des listes sur deux colonnes et un tableau de bord élargi.
 - Les écrans utilisent des termes métier génériques : aucune règle ne dépend du nom d’un utilisateur ou d’une boutique.
+- Les pages métier réutilisent des gabarits de structure ; chaque profil personnalise le contenu et les actions sans redéfinir l’alignement, la hiérarchie ou le comportement responsive.
 
 ## 10. Passage vers Test/MVP
 

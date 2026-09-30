@@ -2,13 +2,16 @@
 
 Application interne de gestion des produits, stocks, recettes et remises d’argent de Parfumerie SAM.
 
-Le projet est actuellement utilisé uniquement dans l’environnement **Dev**. Il ne doit pas être publié vers Test/MVP sans validation explicite.
+Le projet dispose de deux environnements isolés : **DEV** pour les travaux en
+cours et **RECETTE** pour les tests utilisateurs. La recette n'est pas la
+production/MVP.
 
 ## Documentation
 
 - [Guide utilisateur](docs/GUIDE_UTILISATEUR.md)
 - [Dossier d’architecture technique](docs/DAT.md)
 - [Recette fonctionnelle](docs/RECETTE_FONCTIONNELLE.md)
+- [Partager et installer la recette](docs/PARTAGE_RECETTE.md)
 
 ## Contrôles rapides
 

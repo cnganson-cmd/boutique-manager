@@ -1,6 +1,8 @@
 # Personas du MVP — Parfumerie SAM
 
-## Cedric — Administrateur
+Les prénoms ci-dessous sont fictifs et servent uniquement à rendre les parcours plus faciles à suivre. Le rôle reste l’élément qui détermine les droits.
+
+## Alex — Administrateur
 
 **Objectif :** maintenir le catalogue, les utilisateurs, les lieux et les autorisations sans intervenir dans les opérations quotidiennes.
 
@@ -8,7 +10,7 @@
 
 **Ne fait pas :** réceptionner du stock, déclarer une recette ou valider un mouvement à la place d’un acteur opérationnel.
 
-## Samuel — Patron
+## Dominique — Patron
 
 **Objectif :** piloter le réseau, détecter les anomalies et prendre les décisions exceptionnelles.
 
@@ -16,7 +18,7 @@
 
 **Ne fait pas :** préparer les expéditions ou modifier les déclarations historiques.
 
-## Yakin — Magasinier
+## Chris — Magasinier
 
 **Objectif :** connaître le stock autorisé, recevoir les livraisons fournisseurs et préparer les flux entre détenteurs.
 
@@ -24,7 +26,7 @@
 
 **Particularité :** il peut cumuler plusieurs sites et doit toujours vérifier l’espace actif.
 
-## Georges — Gérant
+## Morgan — Gérant
 
 **Objectif :** exploiter sa boutique, demander et réceptionner du stock, puis gérer la caisse du point de vente.
 
@@ -32,7 +34,7 @@
 
 **Ne voit pas :** les stocks, mouvements ou caisses des boutiques auxquelles il n’est pas affecté.
 
-## Joel — Déstockeur mobile
+## Jo — Déstockeur mobile
 
 **Objectif :** recevoir les produits à déstocker, retourner les invendus et confirmer les remises d’argent.
 

@@ -15,7 +15,7 @@ Le menu inférieur contient quatre entrées :
 
 Sur PC, ce même menu apparaît à gauche de l’écran. Sur tablette et téléphone, il reste en bas afin de rester facilement accessible au toucher.
 
-## Gérant — exemple Georges
+## Gérant — persona fictif Morgan
 
 1. **Déclarer une recette** : Accueil → Recette et caisse → Déclarer ma recette.
 2. **Demander du stock** : choisir la source autorisée, ajouter les produits, vérifier le récapitulatif, puis envoyer.
@@ -25,7 +25,7 @@ Sur PC, ce même menu apparaît à gauche de l’écran. Sur tablette et télép
 
 Les montants doivent être des nombres entiers positifs en FCFA. Au moins un montant cash ou Mobile Money doit être renseigné.
 
-## Magasinier — exemple Yakin
+## Magasinier — persona fictif Chris
 
 1. Sélectionner le dépôt ou l’entrepôt concerné.
 2. Ouvrir **Demandes à préparer**.
@@ -33,7 +33,7 @@ Les montants doivent être des nombres entiers positifs en FCFA. Au moins un mon
 4. Expédier les lignes préparées.
 5. Après le contrôle du destinataire, ouvrir **Confirmer une réception** et confirmer ou contester l’écart.
 
-Les rôles et sites de Yakin peuvent se cumuler. Il doit donc toujours vérifier l’espace affiché en haut de l’écran.
+Les rôles et sites du Magasinier peuvent se cumuler. Il doit donc toujours vérifier l’espace affiché en haut de l’écran.
 
 Les demandes indiquent le nom complet de la source et de la destination, par exemple « Dépôt Marché Central → Boutique 104 ».
 
@@ -43,11 +43,11 @@ Le vendeur dispose d’un parcours volontairement court : recette du jour, deman
 
 Il peut déclarer la recette de son site, mais ne peut ni demander un retrait ni enregistrer une remise reçue : ces actions restent sous la responsabilité du Gérant.
 
-## Déstockeur mobile — exemple Joel
+## Déstockeur mobile — persona fictif Jo
 
 Le déstockeur n’est rattaché à aucun site et ne peut cumuler aucun autre rôle.
 
-Les écrans indiquent le trajet complet des opérations, par exemple « Joel → Boutique 104 ».
+Les écrans indiquent le trajet complet des opérations, par exemple « Déstockeur mobile → Boutique autorisée ».
 
 ### Recevoir du stock
 
@@ -64,17 +64,17 @@ Les écrans indiquent le trajet complet des opérations, par exemple « Joel →
 
 ### Remettre l’argent
 
-Le point de vente physique autorisé saisit le montant reçu. Joel ouvre ensuite **Ma caisse mobile** pour confirmer ou contester le cash et le Mobile Money. Une remise mobile ne peut jamais avoir un détenteur mobile comme destination.
+Le point de vente physique autorisé saisit le montant reçu. Le Déstockeur ouvre ensuite **Ma caisse mobile** pour confirmer ou contester le cash et le Mobile Money. Une remise mobile ne peut jamais avoir un détenteur mobile comme destination.
 
-## Patron — exemple Samuel
+## Patron — persona fictif Dominique
 
-Samuel utilise la vue globale pour suivre les stocks de tous les détenteurs, les flux du réseau, les anomalies et les mouvements financiers. « Stocks par détenteur » affiche les sites physiques et les activités mobiles ; un clic ouvre le détail des produits et quantités. Il valide ou refuse les retraits et arbitre les anomalies qui ne peuvent plus être corrigées par les acteurs opérationnels.
+Le Patron utilise la vue globale pour suivre les stocks de tous les détenteurs, les flux du réseau, les anomalies et les mouvements financiers. « Stocks par détenteur » affiche les sites physiques et les activités mobiles ; un clic ouvre le détail des produits et quantités. Il valide ou refuse les retraits et arbitre les anomalies qui ne peuvent plus être corrigées par les acteurs opérationnels.
 
 Pour contrôler une opération de bout en bout, ouvrir **Flux et historique**, retrouver le trajet concerné, puis vérifier successivement la source, la destination, le statut et les montants ou quantités. Le Patron voit l’ensemble du réseau ; les acteurs opérationnels restent limités à leurs sites ou à leur activité mobile.
 
-## Administrateur — exemple Cedric
+## Administrateur — persona fictif Alex
 
-Cedric retrouve quatre espaces simples dans l’administration : **Produits**, **Équipe**, **Boutiques et circulation** et **Contrôle**.
+L’Administrateur retrouve quatre espaces simples : **Produits**, **Équipe**, **Boutiques et circulation** et **Contrôle**.
 
 Son menu principal reste visible en bas sur téléphone et tablette, et sur le côté sur ordinateur : **Accueil**, **Produits**, **Équipe**, **Boutiques**, **Contrôle**. Les autres profils conservent leur propre navigation.
 

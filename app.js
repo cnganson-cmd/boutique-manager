@@ -15,7 +15,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 
 function brandMark(compact=false){return `<div class="brand ${compact?'compact':''}"><img src="assets/brand/${compact?'icone-app':'logo'}.svg" alt="Parfumerie SAM"></div>`}
 
-async function request(path,{method='GET',body,auth=false,headers:extra={}}={}){const headers={apikey:SUPABASE_KEY,'Content-Type':'application/json',...extra};if(auth&&accessToken)headers.Authorization=`Bearer ${accessToken}`;const response=await fetch(`${SUPABASE_URL}${path}`,{method,headers,body:body?JSON.stringify(body):undefined});const text=await response.text();let data=null;try{data=text?JSON.parse(text):null}catch{data=text}if(!response.ok)throw new Error(data?.message||data?.msg||data?.error_description||`Erreur ${response.status}`);return data}
+async function request(path,{method='GET',body,auth=false,headers:extra={}}={}){const headers={apikey:SUPABASE_KEY,'Content-Type':'application/json',...extra};if(auth&&accessToken)headers.Authorization=`Bearer ${accessToken}`;const response=await fetch(`${SUPABASE_URL}${path}`,{method,headers,body:body?JSON.stringify(body):undefined});const text=await response.text();let data=null;try{data=text?JSON.parse(text):null}catch{data=text}if(!response.ok)throw new Error(data?.message||data?.msg||data?.error||data?.error_description||`Erreur ${response.status}`);return data}
 async function api(table,select='*'){return request(`/rest/v1/${table}?select=${encodeURIComponent(select)}`)}
 async function authApi(table,select='*',filters=''){return request(`/rest/v1/${table}?select=${encodeURIComponent(select)}${filters}`,{auth:true})}
 

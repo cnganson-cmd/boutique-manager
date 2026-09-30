@@ -1,5 +1,7 @@
 # Guide utilisateur — Parfumerie SAM
 
+Le guide intégré accessible par **Besoin d’aide ?** s’adapte automatiquement au profil connecté. Il n’affiche que les fonctions réellement utiles aux responsabilités et à l’espace actif.
+
 ## Se repérer
 
 L’application affiche seulement les fonctions utiles au rôle et à l’espace sélectionné. Le sélecteur situé en haut permet de changer de boutique, dépôt ou activité mobile lorsque l’utilisateur possède plusieurs accès.
@@ -105,3 +107,13 @@ Administration → Produits → Nouveau produit. Renseigner la marque, le nom, l
 - Lire le message affiché : une action absente est généralement non autorisée pour le rôle courant.
 - Utiliser **Réessayer** après une coupure réseau. Les opérations sensibles réutilisent le même identifiant afin d’éviter les doublons.
 - Ne jamais partager les identifiants de connexion.
+
+## Vérifier une transaction
+
+Dans le détail d’un flux de stock ou d’argent, sélectionner **Voir qui a fait quoi et quand**. La chronologie indique la date et l’heure, le prénom de l’acteur, l’action, la quantité ou le montant et le commentaire éventuel. Ces traces sont ajoutées ; elles ne remplacent jamais les déclarations précédentes.
+
+## Installer l’application
+
+- **Ordinateur ou Android avec Chrome/Edge** : ouvrir le menu du navigateur puis **Installer l’application**.
+- **iPhone ou iPad avec Safari** : toucher **Partager**, puis **Sur l’écran d’accueil**.
+- L’interface s’ouvre ensuite comme une application autonome. Une connexion internet reste nécessaire pour garantir que les stocks et montants affichés sont à jour.

@@ -20,6 +20,8 @@ Le client ne contient qu’une clé publique Supabase. Aucune clé `service_role
 | `app.js` | session, appels HTTP, chargement utilisateur et catalogue |
 | `ux-shell.js` | contexte global/site/mobile, accueil par rôle et navigation |
 | `ui-templates.js` | gabarits communs d’en-tête, ligne d’action et page de décision |
+| `transaction-history.js` | chronologie sécurisée et lisible des transactions stock/argent |
+| `manifest.webmanifest`, `service-worker.js`, `pwa.js` | installation PWA et cache du shell statique |
 | `stock-flow-ux.js` | création des retours, transferts et réapprovisionnements |
 | `supplier-arrivals-ux.js` | réception des grosses livraisons fournisseur et consultation des bons |
 | `flow-inboxes.js` | boîtes de traitement, réception et confirmation du stock |
@@ -59,6 +61,8 @@ Chaque ligne conserve ses événements : décision, déclaration de réception e
 - **Remise** : saisie par le destinataire physique, confirmation ou contestation par la source, correction possible, puis arbitrage Patron si nécessaire.
 
 Les RPC financières et stock utilisent un identifiant d’opération client pour rendre les reprises idempotentes.
+
+Chaque étape métier écrit l’acteur et `cree_le` dans la table événementielle correspondante. Les RPC `consulter_historique_flux_stock` et `consulter_historique_flux_argent` vérifient d’abord que l’acteur peut voir le flux, puis exposent uniquement le prénom nécessaire à l’audit.
 
 ### Arrivage fournisseur
 
@@ -110,6 +114,7 @@ Le linter Supabase peut signaler les RPC `SECURITY DEFINER` exposées aux utilis
 - À partir de 1100 px, l’espace PC utilise une navigation latérale, des listes sur deux colonnes et un tableau de bord élargi.
 - Les écrans utilisent des termes métier génériques : aucune règle ne dépend du nom d’un utilisateur ou d’une boutique.
 - Les pages métier réutilisent des gabarits de structure ; chaque profil personnalise le contenu et les actions sans redéfinir l’alignement, la hiérarchie ou le comportement responsive.
+- Le manifeste PWA utilise un affichage autonome et le service worker met en cache uniquement le shell statique. Les données Supabase ne sont jamais considérées disponibles hors ligne afin d’éviter d’afficher un stock ou un montant périmé.
 
 ## 10. Passage vers Test/MVP
 

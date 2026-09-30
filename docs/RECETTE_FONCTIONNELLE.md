@@ -88,6 +88,12 @@
 | E2E-02 | Joel prépare un retour, Boutique 104 réceptionne, Joel confirme, puis la boutique enregistre sa remise d’argent et Samuel contrôle | Le stock mobile est débité, le stock physique crédité, le retour est clôturé et la remise reste dirigée uniquement vers le point physique autorisé |
 | E2E-03 | Un acteur tente d’ouvrir un flux, un mouvement financier ou un détenteur hors de son périmètre | La base ne retourne aucune donnée et les RPC refusent toute transition non autorisée |
 | E2E-04 | Les parcours E2E sont ouverts sur téléphone, tablette et PC | La navigation principale reste disponible ; les tâches, étiquettes et actions restent lisibles sans défilement horizontal |
+| AUDIT-01 | Un utilisateur autorisé ouvre l’historique d’un flux de stock | Chaque étape affiche l’action, le prénom de l’acteur, la date, l’heure, la quantité et le commentaire éventuel |
+| AUDIT-02 | Un utilisateur autorisé ouvre l’historique d’un mouvement d’argent | La création, les confirmations, contestations et décisions affichent l’acteur et l’horodatage exact |
+| AUDIT-03 | Un utilisateur hors périmètre appelle une RPC d’historique | Refus automatique sans révéler le nom des acteurs |
+| GUIDE-01 | Chaque persona ouvre « Besoin d’aide ? » | Seuls sa mission, ses droits et ses parcours accessibles sont proposés |
+| PWA-01 | L’application est installée sur PC, Android et iOS/iPadOS | Elle s’ouvre en mode autonome avec le logo SAM et conserve une mise en page adaptée |
+| PWA-02 | La connexion est interrompue | Le shell peut s’ouvrir, mais aucune donnée métier périmée n’est présentée comme actuelle |
 
 ## Contrôle inter-rôles du 29 septembre 2026
 

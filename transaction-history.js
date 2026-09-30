@@ -1,0 +1,12 @@
+// Historique commun aux flux de stock et d'argent.
+// La base filtre d'abord le flux selon l'acteur connecté, puis renvoie seulement
+// le prénom nécessaire à l'audit : l'annuaire complet n'est jamais exposé.
+const transactionLabels={CREATION:'Création',DEMANDE:'Demande enregistrée',DECISION_MAGASINIER:'Préparation du stock',DECLARATION_RECEPTION:'Réception déclarée',CONFIRMATION_MAGASINIER:'Contrôle confirmé',CONFIRMATION_SOURCE:'Montant confirmé',CONTESTATION_SOURCE:'Montant contesté',ESCALADE_PATRON:'Transmis au Patron',RESOLUTION_PATRON:'Décision du Patron'};
+function transactionDate(value){return new Date(value).toLocaleString('fr-FR',{dateStyle:'medium',timeStyle:'short'})}
+function transactionTimeline(rows){return `<ol class="transaction-timeline">${rows.map(row=>`<li><span class="transaction-dot" aria-hidden="true"></span><div><small>${esc(transactionDate(row.cree_le))}</small><strong>${esc(transactionLabels[row.action_code]||row.action_code.replaceAll('_',' '))}</strong><span>Par ${esc(row.acteur_nom||'Système')}</span>${row.details?`<p>${esc(row.details)}</p>`:''}</div></li>`).join('')}</ol>`}
+async function stockTransactionHistory(flowId,backAction="patronStockFlows()"){
+  try{const rows=await request('/rest/v1/rpc/consulter_historique_flux_stock',{method:'POST',auth:true,body:{p_flux_stock_id:flowId}});shell(`${uiPageHead({eyebrow:`FLUX DE STOCK · ${esc(flowId.slice(0,8))}`,title:'Historique de la transaction',description:'Qui a fait quoi, et quand.',action:`<button onclick="${backAction}">Retour au flux</button>`})}<section class="ui-panel">${transactionTimeline(rows)}</section>`,backAction)}catch(error){shell(uiPageHead({eyebrow:'ERREUR',title:'Historique indisponible',description:esc(error.message)}),backAction)}
+}
+async function moneyTransactionHistory(flowId,backAction="moneyHistory()"){
+  try{const rows=await request('/rest/v1/rpc/consulter_historique_flux_argent',{method:'POST',auth:true,body:{p_flux_argent_id:flowId}});shell(`${uiPageHead({eyebrow:`MOUVEMENT D’ARGENT · ${esc(flowId.slice(0,8))}`,title:'Historique de la transaction',description:'Qui a fait quoi, et quand.',action:`<button onclick="${backAction}">Retour au mouvement</button>`})}<section class="ui-panel">${transactionTimeline(rows)}</section>`,backAction)}catch(error){shell(uiPageHead({eyebrow:'ERREUR',title:'Historique indisponible',description:esc(error.message)}),backAction)}
+}

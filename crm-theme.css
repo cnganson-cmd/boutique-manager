@@ -154,6 +154,26 @@ nav button { position: relative; }
 .ui-help { margin-top: 9px; padding: 11px; border-radius: 9px; background: #f3f7f5; color: var(--sam-muted); font-size: 12px; line-height: 1.45; }
 .ui-submit { margin-top: 18px; }
 .ui-immutable-note { display: block; margin-top: 10px; color: var(--sam-muted); line-height: 1.45; text-align: center; }
+.transaction-timeline { margin: 0; padding: 0; list-style: none; }
+.transaction-timeline li { position: relative; min-height: 92px; padding: 0 0 20px 42px; }
+.transaction-timeline li:not(:last-child)::before { content: ""; position: absolute; left: 14px; top: 29px; bottom: 0; width: 2px; background: var(--sam-line); }
+.transaction-dot { position: absolute; left: 5px; top: 3px; width: 20px; height: 20px; border: 5px solid #d9eee6; border-radius: 50%; background: var(--sam-plum); }
+.transaction-timeline li > div { display: flex; flex-direction: column; }
+.transaction-timeline small, .transaction-timeline span, .transaction-timeline p { color: var(--sam-muted); }
+.transaction-timeline strong { margin: 4px 0; }
+.transaction-timeline p { margin-top: 7px; padding: 9px 11px; border-radius: 9px; background: #f4f7f6; font-size: 12px; }
+.guide-persona { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin-bottom: 26px; }
+.guide-persona > div { padding: 18px; border: 1px solid var(--sam-line); border-radius: 14px; background: #fff; }
+.guide-persona span { color: var(--sam-plum); font-size: 9px; font-weight: 900; letter-spacing: .11em; }
+.guide-persona h2 { margin: 7px 0 4px; }
+.guide-persona p { font-size: 12px; }
+.guide-rights { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.guide-rights span { display: inline-flex; align-items: center; gap: 7px; padding: 9px 12px; border-radius: 999px; background: #edf6f2; color: var(--sam-ink); font-size: 12px; font-weight: 750; }
+.guide-rights i { color: #28734e; font-style: normal; }
+.guide-install { margin-top: 24px; padding: 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border: 1px solid #bad1c8; border-radius: 14px; background: #f4faf7; }
+.guide-install div { display: flex; flex-direction: column; }
+.guide-install small { margin-top: 4px; color: var(--sam-muted); }
+.guide-install button { min-width: 130px; }
 .toolbar { display: flex; gap: 10px; margin-bottom: 14px; }
 .toolbar label { min-width: 290px; height: 42px; display: flex; align-items: center; gap: 9px; padding: 0 13px; border: 1px solid var(--sam-line); border-radius: 9px; background: #fff; }
 .toolbar input { height: 38px; margin: 0; padding: 0; border: 0; outline: 0; background: transparent; }
@@ -449,6 +469,9 @@ html[data-theme="dark"] nav { background: linear-gradient(180deg, #073f32, #041f
 }
 
 @media (max-width: 430px) {
+  .guide-persona { grid-template-columns: 1fr; }
+  .guide-install { align-items: stretch; flex-direction: column; }
+  .guide-install button { width: 100%; }
   .ui-stats { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .ui-panel { padding: 16px; }
   .ui-action-row { align-items: stretch; flex-direction: column; }

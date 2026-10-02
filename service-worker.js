@@ -1,4 +1,4 @@
-const CACHE='sam-manager-shell-v5';
+const CACHE='sam-manager-shell-v6';
 const SHELL=['./','./index.html','./test.html','./config.js','./config-test.js','./manifest.webmanifest','./manifest-test.webmanifest','./styles.css','./sam-theme.css','./crm-theme.css','./mockup-parity.css','./patron-dashboard.css','./patron-dashboard.js','./manager-dashboard.css','./manager-dashboard.js','./assets/brand/logo.svg','./assets/brand/logo-blanc.svg','./assets/brand/icone-app.svg'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));

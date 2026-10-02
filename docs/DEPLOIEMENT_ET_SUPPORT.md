@@ -3,10 +3,12 @@
 ## Environnements
 
 - **DEV** : développement et données de démonstration actuelles.
-- **TEST** : future recette utilisateur, avec projet Supabase, URL et comptes séparés.
-- **PRODUCTION** : création uniquement après validation formelle du MVP en TEST.
+- **RECETTE** : tests utilisateurs, avec projet Supabase et comptes séparés.
+- **PRODUCTION** : socle préparé mais création et publication uniquement après
+  validation formelle du MVP en RECETTE.
 
 Ne jamais réutiliser une clé, une base ou un jeu de comptes entre ces environnements.
+La procédure complète de promotion est décrite dans `docs/ENVIRONNEMENTS.md`.
 
 ## Déploiement du client
 

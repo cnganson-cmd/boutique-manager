@@ -1,13 +1,15 @@
 // Socle client : session Supabase, appels Data API, identité métier et catalogue.
 // Les autorisations réelles restent contrôlées par PostgreSQL/RLS et les RPC.
 const app=document.querySelector('#app');
-// La cible Supabase est injectée par la page (DEV ou RECETTE). Garder cette
+// La cible Supabase est injectée par la page (DEV, RECETTE ou future PROD). Garder cette
 // configuration hors de la logique métier empêche les deux environnements de
 // partager leurs données tout en conservant exactement la même application.
 const SUPABASE_URL=window.BM_CONFIG?.supabaseUrl;
 const SUPABASE_KEY=window.BM_CONFIG?.supabaseKey;
 const APP_ENV=window.BM_CONFIG?.environment||'DEV';
 if(!SUPABASE_URL||!SUPABASE_KEY)throw new Error('Configuration de l’environnement absente');
+if(!['DEV','RECETTE','PROD'].includes(APP_ENV))throw new Error('Environnement non reconnu');
+if(APP_ENV==='PROD'&&[SUPABASE_URL,SUPABASE_KEY].some(value=>value.includes('__SUPABASE_PROD_')))throw new Error('La production est préparée mais volontairement désactivée');
 const REAPPRO_TYPE='1f51c270-d2f1-4ea0-a22d-5a70579b6e7b';
 let cart=[],products=[],catalogReady=false,currentUser=null,accessToken=sessionStorage.getItem('bm_access_token')||'',pendingRequestOperationId=null;
 
@@ -19,7 +21,7 @@ async function request(path,{method='GET',body,auth=false,headers:extra={}}={}){
 async function api(table,select='*'){return request(`/rest/v1/${table}?select=${encodeURIComponent(select)}`)}
 async function authApi(table,select='*',filters=''){return request(`/rest/v1/${table}?select=${encodeURIComponent(select)}${filters}`,{auth:true})}
 
-function loginScreen(message=''){app.innerHTML=`<div class="login">${brandMark()}<div class="login-intro"><span>ESPACE ÉQUIPE</span><h1>Bienvenue</h1><p>Connectez-vous pour accéder à votre espace de travail.</p></div>${message?`<div class="login-error">${esc(message)}</div>`:''}<form onsubmit="login(event)"><label for="email">Adresse email</label><input id="email" type="email" autocomplete="username" placeholder="nom@parfumeriesam.com" required><label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required><button class="primary" type="submit">Se connecter</button></form><small class="poc-note">Accès sécurisé · Parfumerie SAM</small></div>`}
+function loginScreen(message=''){app.innerHTML=`<div class="login">${brandMark()}${environmentBadge()}<div class="login-intro"><span>ESPACE ÉQUIPE</span><h1>Bienvenue</h1><p>Connectez-vous pour accéder à votre espace de travail.</p></div>${message?`<div class="login-error">${esc(message)}</div>`:''}<form onsubmit="login(event)"><label for="email">Adresse email</label><input id="email" type="email" autocomplete="username" placeholder="nom@parfumeriesam.com" required><label for="password">Mot de passe</label><input id="password" type="password" autocomplete="current-password" required><button class="primary" type="submit">Se connecter</button></form><small class="poc-note">Accès sécurisé · Parfumerie SAM</small></div>`}
 function recoverySession(){const params=new URLSearchParams(location.hash.replace(/^#/,'')),type=params.get('type'),token=params.get('access_token');return ['invite','recovery'].includes(type)&&token?{type,token}:null}
 function passwordSetupScreen(session,message=''){app.innerHTML=`<div class="login">${brandMark()}<div class="login-intro"><span>ACCÈS SÉCURISÉ</span><h1>Choisir un mot de passe</h1><p>${session.type==='invite'?'Votre invitation est valide.':'Créez votre nouveau mot de passe.'}</p></div>${message?`<div class="login-error">${esc(message)}</div>`:''}<form onsubmit="saveNewPassword(event,'${esc(session.token)}')"><label for="new-password">Nouveau mot de passe</label><input id="new-password" type="password" autocomplete="new-password" minlength="10" required><label for="confirm-password">Confirmer le mot de passe</label><input id="confirm-password" type="password" autocomplete="new-password" minlength="10" required><button class="primary" type="submit">Enregistrer et me connecter</button></form></div>`}
 async function saveNewPassword(event,token){event.preventDefault();const password=document.getElementById('new-password').value,confirmPassword=document.getElementById('confirm-password').value;if(password!==confirmPassword)return passwordSetupScreen({type:'recovery',token},'Les deux mots de passe sont différents.');try{await request('/auth/v1/user',{method:'PUT',body:{password},headers:{Authorization:`Bearer ${token}`}});accessToken=token;sessionStorage.setItem('bm_access_token',accessToken);history.replaceState(null,'',location.pathname+location.search);await loadCurrentUser();home();void loadCatalog()}catch(e){passwordSetupScreen({type:'recovery',token},e.message)}}

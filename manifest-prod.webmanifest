@@ -1,0 +1,14 @@
+{
+  "name": "Parfumerie SAM",
+  "short_name": "Parfumerie SAM",
+  "description": "Application de gestion de Parfumerie SAM.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8faf9",
+  "theme_color": "#073f32",
+  "orientation": "any",
+  "icons": [
+    {"src":"assets/brand/icone-app.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

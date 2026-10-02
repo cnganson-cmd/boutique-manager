@@ -26,6 +26,6 @@ expectRule('html[data-theme="dark"] ::placeholder','color: #879991');
 // une ancienne feuille après la publication d'une correction visuelle.
 if(!testHtml.includes('crm-theme.css?v=14'))throw new Error('Version du thème RECETTE non actualisée');
 if(!indexHtml.includes('crm-theme.css?v=14'))throw new Error('Version du thème DEV non actualisée');
-if(!serviceWorker.includes("sam-manager-shell-v7"))throw new Error('Cache PWA non actualisé');
+if(!serviceWorker.includes("sam-manager-${ENVIRONMENT.toLowerCase()}-shell-v8"))throw new Error('Cache PWA non isolé par environnement');
 
 console.log('Dark theme contrast smoke test: OK');

@@ -39,7 +39,7 @@ assert.match(css, /\.product-row > \.row-action/);
 assert.doesNotMatch(anomalies, /Expédié par Joel|reçu par Georges|Observation Joel/);
 assert.match(index, /money-ux\.js\?v=9/);
 assert.match(index, /sam-theme\.css\?v=16/);
-assert.match(index, /crm-theme\.css\?v=13/);
+assert.match(index, /crm-theme\.css\?v=14/);
 assert.match(index, /mockup-parity\.css\?v=4/);
 assert.match(parity, /\.profile-trigger \.avatar[\s\S]*?width: 30px;[\s\S]*?border-radius: 8px;/);
 assert.match(parity, /@media \(max-width: 520px\)[\s\S]*?\.header-task \{ display: none; \}/);

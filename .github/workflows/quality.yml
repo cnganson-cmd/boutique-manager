@@ -1,0 +1,50 @@
+name: Contrôles qualité
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [test, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke-tests:
+    name: Tests fonctionnels légers
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Préparer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Vérifier la syntaxe JavaScript
+        shell: bash
+        run: |
+          for file in *.js tests/*.js; do
+            node --check "$file"
+          done
+
+      - name: Exécuter les tests fonctionnels
+        shell: bash
+        run: |
+          for test_file in tests/*.test.js; do
+            node "$test_file"
+          done
+
+      - name: Vérifier les marqueurs PROD
+        shell: bash
+        run: |
+          test -f config-prod.example.js
+          grep -q '__SUPABASE_PROD_URL__' config-prod.example.js
+          grep -q '__SUPABASE_PROD_PUBLISHABLE_KEY__' config-prod.example.js
+          test ! -f config-prod.js

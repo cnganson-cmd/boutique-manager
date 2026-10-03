@@ -33,6 +33,7 @@ jobs:
           for file in *.js tests/*.js; do
             node --check "$file"
           done
+          node --check scripts/build-cloudflare.mjs
 
       - name: Exécuter les tests fonctionnels
         shell: bash
@@ -48,3 +49,9 @@ jobs:
           grep -q '__SUPABASE_PROD_URL__' config-prod.example.js
           grep -q '__SUPABASE_PROD_PUBLISHABLE_KEY__' config-prod.example.js
           test ! -f config-prod.js
+
+      - name: Construire les environnements Cloudflare
+        shell: bash
+        run: |
+          node scripts/build-cloudflare.mjs DEV
+          node scripts/build-cloudflare.mjs RECETTE

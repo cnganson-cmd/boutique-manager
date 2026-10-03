@@ -12,8 +12,26 @@ ajoutée directement au moment du passage vers l'environnement suivant.
 | RECETTE | `test` | Supabase RECETTE | SAM Recette | active |
 | PROD | `main` | Supabase PROD dédiée | Parfumerie SAM | préparée, désactivée |
 
-Les noms de branches constituent la cible. Tant que les déploiements séparés ne
-sont pas raccordés, la publication GitHub Pages existante reste transitoire.
+Les noms de branches constituent la cible. GitHub Pages reste un retour arrière
+transitoire jusqu'à la validation complète des deux déploiements Cloudflare.
+
+## Construction Cloudflare
+
+Les deux environnements produisent la même structure publique sans partager leur
+configuration Supabase :
+
+| Cible | Commande de build | Configuration Wrangler | Sortie |
+|---|---|---|---|
+| DEV | `node scripts/build-cloudflare.mjs DEV` | `wrangler.jsonc` | `.cloudflare/dev` |
+| RECETTE | `node scripts/build-cloudflare.mjs RECETTE` | `wrangler.recette.jsonc` | `.cloudflare/recette` |
+
+Le Worker DEV écoute uniquement `develop`. Le Worker RECETTE écoute uniquement
+`test` et utilise `npx wrangler deploy --config wrangler.recette.jsonc`. Les
+aperçus automatiques des autres branches restent désactivés sur les deux Workers.
+
+Les sorties `.cloudflare/` sont générées pendant le build et ne sont jamais
+versionnées. Elles ne contiennent ni `.git`, ni tests, migrations, documentation,
+archives, configuration PROD ou configuration de l'autre environnement.
 
 ## Garde-fous PROD
 

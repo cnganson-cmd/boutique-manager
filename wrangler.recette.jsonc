@@ -1,0 +1,11 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "parfumerie-sam-recette",
+  "compatibility_date": "2026-10-03",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./.cloudflare/recette",
+    "not_found_handling": "single-page-application"
+  }
+}

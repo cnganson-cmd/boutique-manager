@@ -1,6 +1,8 @@
 # Le Worker DEV ne publie que l'application cliente.
 **/.git
 **/.git/**
+.wrangler
+.wrangler/**
 .github
 .github/**
 database

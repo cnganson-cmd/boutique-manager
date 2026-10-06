@@ -1,0 +1,24 @@
+# Le Worker DEV ne publie que l'application cliente.
+**/.git
+**/.git/**
+.wrangler
+.wrangler/**
+.github
+.github/**
+database
+database/**
+design
+design/**
+docs
+docs/**
+supabase
+supabase/**
+tests
+tests/**
+*.zip
+README.md
+config-prod.example.js
+manifest-prod.webmanifest
+test.html
+config-test.js
+manifest-test.webmanifest

@@ -62,5 +62,5 @@ async function moneyHistory(){
   }catch(error){shell(`<div class="title"><h1>Historique indisponible</h1><p>${esc(error.message)}</p></div>`,'moneyHome()')}
 }
 function moneyTasks(){moneyHome()}
-function patronMoney(){patronStocks()}
+function patronMoney(){return patronStocks()}
 function destockerMoneyHome(){home()}

@@ -17,11 +17,10 @@ const context={
     if(table==='types_flux_stock')return [{type_flux_stock_id:'type-return',code_type_flux:'RETOUR',nom_type_flux:'Retour',actif:true}];
     if(table==='routes_flux_stock')return [{route_flux_stock_id:'route-1',type_flux_stock_id:'type-return',detenteur_source_id:holderJoel,detenteur_destination_id:holder104,actif:true}];
     if(table==='flux_stock')return [flow];
-    if(table==='flux_argent')return [{flux_argent_id:'money-1',type_flux:'REMISE',detenteur_source_id:holderJoel,detenteur_destination_id:holder104,montant_cash:1000,montant_mobile_money:500,statut:'A_CONFIRMER_SOURCE',cree_le:'2026-09-20T08:00:00Z'}];
     return [];
   },
   request:async path=>{
-    if(path.includes('consulter_repartition_stock'))return [{detenteur_stock_id:holderJoel,reference_produit_id:'ref-1',reference_libelle:'Lait 400 ML',quantite:12,mis_a_jour_le:'2026-09-20T08:00:00Z'}];
+    if(path.includes('consulter_stocks_operationnels'))return [{detenteur_stock_id:holderJoel,type_detenteur:'DESTOCKEUR',detenteur_nom:'Joel',reference_produit_id:'ref-1',reference_libelle:'Lait 400 ML',quantite_physique:12,quantite_reservee:0,quantite_disponible:12,quantite_en_transit:0,mis_a_jour_le:'2026-09-20T08:00:00Z'}];
     if(path.includes('consulter_mouvements_stock_accessibles'))return [{mouvement_stock_id:'move-1',detenteur_stock_id:holderJoel,reference_produit_id:'ref-1',reference_libelle:'Lait 400 ML',type_mouvement:'RECEPTION',variation_quantite:12,cree_le:'2026-09-20T08:00:00Z'}];
     if(path.includes('consulter_libelles_detenteurs_accessibles'))return [
       {detenteur_stock_id:holderJoel,type_detenteur:'DESTOCKEUR',detenteur_nom:'Joel'},
@@ -43,13 +42,12 @@ function includes(...labels){for(const label of labels)assert.ok(app.innerHTML.i
 
 (async()=>{
   vm.runInContext('home()',context);
-  includes('Activité mobile','Mon stock','À traiter','À recevoir','Remises à confirmer','À FAIRE MAINTENANT','MON ACTIVITÉ MOBILE','Actions rapides','Retourner des invendus','Retours à envoyer','Recevoir du stock','Ma caisse mobile');
+  includes('Activité mobile','Mon stock','À traiter','À recevoir','À FAIRE MAINTENANT','MON ACTIVITÉ MOBILE','Actions rapides','Retourner des invendus','Retours à envoyer','Recevoir du stock','Flux');
   await new Promise(resolve=>setTimeout(resolve,0));
   assert.equal(uiNodes['metric-mobile-stock'].textContent,'12 unités');
-  assert.equal(uiNodes['metric-destocker-actions'].textContent,'2');
-  assert.equal(uiNodes['metric-money-tasks'].textContent,'1');
+  assert.equal(uiNodes['metric-destocker-actions'].textContent,'1');
   assert.match(uiNodes['destocker-home-tasks'].innerHTML,/À EXPÉDIER/);
-  assert.match(uiNodes['destocker-home-tasks'].innerHTML,/remise d’argent/);
+  assert.doesNotMatch(uiNodes['destocker-home-tasks'].innerHTML,/remise d’argent/);
   assert.match(uiNodes['destocker-home-activity'].innerHTML,/Stock reçu/);
 
   const routes=await vm.runInContext("loadContextFlowRoutes('RETOUR','out')",context);
@@ -61,10 +59,11 @@ function includes(...labels){for(const label of labels)assert.ok(app.innerHTML.i
   includes('Retours à envoyer','Joel','Boutique 104','Nouvelle demande');
 
   await vm.runInContext('destockerMoneyHome()',context);
-  includes('Mes remises','À confirmer','Historique');
+  includes('Activité mobile','Retours à envoyer');
+  assert.doesNotMatch(app.innerHTML,/Mes remises|Remises à confirmer|Ma caisse mobile/);
 
   await vm.runInContext('moneyTasks()',context);
-  includes('À traiter','1 opération','Cash','Mobile Money');
+  assert.doesNotMatch(app.innerHTML,/1 opération|Cash|Mobile Money/);
 
   console.log('Recette UI Déstockeur: OK');
 })().catch(error=>{console.error(error);process.exitCode=1});

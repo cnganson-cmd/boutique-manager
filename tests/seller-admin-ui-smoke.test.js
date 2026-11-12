@@ -23,7 +23,6 @@ const context={
     if(table==='types_site')return [{type_site_id:'type-shop',code_type:'BOUTIQUE',nom_type:'Boutique',actif:true}];
     if(table==='types_flux_stock')return [{type_flux_stock_id:'return-type',code_type_flux:'RETOUR',nom_type_flux:'Retour',actif:true}];
     if(table==='routes_flux_stock')return [{route_flux_stock_id:'route-1',type_flux_stock_id:'return-type',detenteur_source_id:'holder-joel',detenteur_destination_id:'holder-104',actif:true}];
-    if(table==='routes_financieres')return [{route_financiere_id:'money-route',detenteur_source_id:'holder-joel',detenteur_destination_id:'holder-104',actif:true,cree_le:'2026-09-20T08:00:00Z'}];
     if(table==='journal_administration')return [{journal_administration_id:'j1',acteur_user_id:'cedric',action_code:'ROLE_ATTRIBUE',objet_type:'UTILISATEUR_ROLE_SITE',objet_id:'a1',details:{},cree_le:'2026-09-20T08:00:00Z'}];
     if(table==='produits')return [{produit_id:'product-1',nom_produit:'Lait corps',variante:'Karité',marque_id:'brand-1',categorie_produit_id:'category-1',type_produit_id:'type-1',fabricant_id:'manufacturer-1',actif:true}];
     if(table==='marques')return [{marque_id:'brand-1',nom_marque:'SAM Test',actif:true}];
@@ -136,7 +135,8 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   handlersExist();
 
   vm.runInContext('adminNetworkHub()',context);
-  includes('Points de vente et stocks','Mouvements de stock autorisés','Remises d’argent autorisées');
+  includes('Points de vente et stocks','Mouvements de stock autorisés');
+  excludes('Remises d’argent autorisées','Autoriser une remise d’argent');
   handlersExist();
 
   await vm.runInContext('adminSites()',context);
@@ -147,8 +147,6 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   await vm.runInContext('adminStockRoutes()',context);
   includes('Mouvements de stock autorisés','Joel · mobile','Boutique 104','Retour');
 
-  await vm.runInContext('adminFinancialRoutes()',context);
-  includes('Joel · mobile','Boutique 104','Remises d’argent autorisées');
 
   await vm.runInContext('adminJournal()',context);
   includes('Historique des modifications','Responsabilité attribuée','Cedric','Exporter le journal','Depuis','Voir les détails','class="row-action"');

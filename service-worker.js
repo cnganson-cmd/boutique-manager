@@ -1,5 +1,5 @@
 const ENVIRONMENT=new URL(self.location.href).searchParams.get('env')||'DEV';
-const CACHE=`sam-manager-${ENVIRONMENT.toLowerCase()}-shell-v8`;
+const CACHE=`sam-manager-${ENVIRONMENT.toLowerCase()}-shell-v9`;
 // GitHub Pages héberge encore DEV et RECETTE dans le même dépôt, tandis que
 // Cloudflare ne publie que les fichiers DEV. Le shell dépend donc du contexte
 // afin de ne jamais bloquer l'installation de la PWA sur un fichier absent.

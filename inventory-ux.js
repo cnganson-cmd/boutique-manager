@@ -6,11 +6,38 @@ async function inventoryHolder(){const holder=await contextHolder();if(!holder||
 
 async function inventoryHome(){
   try{
+    const globalPatron=currentContext().kind==='GLOBAL'&&hasRoleHere('PATRON');
+    if(globalPatron){
+      const [inventories,stock]=await Promise.all([
+        request('/rest/v1/rpc/consulter_inventaires_stock',{method:'POST',auth:true,body:{p_detenteur_stock_id:null}}),
+        request('/rest/v1/rpc/consulter_stocks_operationnels',{method:'POST',auth:true,body:{p_detenteur_stock_id:null,p_recherche:null}})
+      ]);
+      const holders=new Map();
+      stock.filter(row=>row.type_detenteur==='SITE').forEach(row=>{
+        const h=holders.get(row.detenteur_stock_id)||{id:row.detenteur_stock_id,name:row.detenteur_nom,units:0,available:0,reserved:0,transit:0};
+        h.units+=Number(row.quantite_physique||0);h.available+=Number(row.quantite_disponible||0);h.reserved+=Number(row.quantite_reservee||0);h.transit+=Number(row.quantite_en_transit||0);holders.set(row.detenteur_stock_id,h);
+      });
+      const cards=[...holders.values()].map(h=>{
+        const open=inventories.find(x=>x.detenteur_stock_id===h.id&&x.statut==='OUVERT');
+        return `<article class="product-row"><div class="grow"><small>SITE PHYSIQUE</small><strong>${esc(h.name)}</strong><span>Physique ${h.units} · Disponible ${h.available} · Réservé ${h.reserved} · Transit ${h.transit}</span></div><button class="row-action" onclick="${open?`inventoryDetail('${open.inventaire_id}')`:`startInventoryForHolder('${h.id}')`}">${open?'Reprendre':'Ouvrir'}</button></article>`;
+      }).join('');
+      const history=inventories.map(row=>`<article class="product-row"><div class="grow"><small>${esc(row.code_inventaire)} · ${esc(inventoryStatusLabel(row.statut))}</small><strong>${row.lignes_comptees}/${row.total_lignes} références comptées</strong><span>${row.ecarts} écart(s) · ${new Date(row.ouvert_le).toLocaleString('fr-FR')}</span></div><button class="row-action" onclick="inventoryDetail('${row.inventaire_id}')">Consulter</button></article>`).join('');
+      shell(`<div class="title"><small>PILOTAGE RÉSEAU</small><h1>Inventaires</h1><p>Sélectionnez un site physique pour ouvrir ou reprendre son inventaire. Un inventaire ouvert suspend ses mouvements de stock jusqu’à sa clôture ou son annulation.</p></div><section class="list">${cards||'<div class="empty">Aucun site physique autorisé.</div>'}</section><div class="section-heading"><small>HISTORIQUE</small><h2>Sessions d’inventaire</h2></div><section class="list">${history||'<div class="empty">Aucun inventaire enregistré.</div>'}</section>${nav('inventory')}`,'home()');
+      return;
+    }
     const holder=await inventoryHolder();
     const rows=await request('/rest/v1/rpc/consulter_inventaires_stock',{method:'POST',auth:true,body:{p_detenteur_stock_id:holder.detenteur_stock_id}});
     const open=rows.find(x=>x.statut==='OUVERT');
     shell(`<div class="title"><small>CONTRÔLE PHYSIQUE · ${esc(currentSiteContext()?.name||'Site')}</small><h1>Inventaires</h1><p>Les mouvements du détenteur sont suspendus pendant un inventaire ouvert, afin de garantir un comptage fiable.</p></div>${open?'<button class="primary" onclick="inventoryDetail(\''+open.inventaire_id+'\')">Reprendre l’inventaire en cours</button>':'<button class="primary" onclick="startInventory()">＋ Ouvrir un inventaire</button>'}<section class="list">${rows.map(row=>`<article class="product-row"><div class="grow"><small>${esc(row.code_inventaire)} · ${esc(inventoryStatusLabel(row.statut))}</small><strong>${row.lignes_comptees}/${row.total_lignes} références comptées</strong><span>${row.ecarts} écart(s) · ${new Date(row.ouvert_le).toLocaleString('fr-FR')}</span></div><button class="row-action" onclick="inventoryDetail('${row.inventaire_id}')">Consulter</button></article>`).join('')||'<div class="empty-state"><b>▤</b><h2>Aucun inventaire</h2><p>Ouvrez un inventaire pour lancer un comptage physique.</p></div>'}</section>${nav('inventory')}`,'home()');
   }catch(error){shell(`<div class="title"><small>INVENTAIRES</small><h1>Accès indisponible</h1><p>${esc(error.message)}</p></div>`,'home()')}
+}
+
+async function startInventoryForHolder(holderId){
+  try{
+    if(!confirm('Ouvrir un inventaire sur ce site ? Les mouvements de stock seront temporairement suspendus jusqu’à la clôture ou l’annulation.'))return inventoryHome();
+    const id=await request('/rest/v1/rpc/ouvrir_inventaire_stock',{method:'POST',auth:true,body:{p_operation_client_id:crypto.randomUUID(),p_detenteur_stock_id:holderId,p_commentaire:null}});
+    activeInventoryId=id;await inventoryDetail(id);
+  }catch(error){alert(error.message);inventoryHome()}
 }
 
 async function startInventory(){
@@ -28,11 +55,10 @@ async function startInventory(){
 
 async function inventoryDetail(id){
   try{
-    const [rows,holder]=await Promise.all([
-      request('/rest/v1/rpc/consulter_lignes_inventaire_stock',{method:'POST',auth:true,body:{p_inventaire_id:id}}),
-      inventoryHolder()
-    ]);
-    const headers=await request('/rest/v1/rpc/consulter_inventaires_stock',{method:'POST',auth:true,body:{p_detenteur_stock_id:holder.detenteur_stock_id}});
+    const rows=await request('/rest/v1/rpc/consulter_lignes_inventaire_stock',{method:'POST',auth:true,body:{p_inventaire_id:id}});
+    const globalPatron=currentContext().kind==='GLOBAL'&&hasRoleHere('PATRON');
+    const holder=globalPatron?null:await inventoryHolder();
+    const headers=await request('/rest/v1/rpc/consulter_inventaires_stock',{method:'POST',auth:true,body:{p_detenteur_stock_id:globalPatron?null:holder.detenteur_stock_id}});
     const meta=headers.find(x=>x.inventaire_id===id);
     if(!meta)throw new Error('Inventaire introuvable ou non autorisé.');
     activeInventoryId=id;activeInventoryRows=rows;

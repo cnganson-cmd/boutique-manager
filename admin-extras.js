@@ -56,8 +56,7 @@ async function adminAttentionData(){
     productsNoSupplier:products.filter(product=>!productsWithSupplier.has(product.produit_id)),
     suppliersNoProduct:suppliers.filter(supplier=>!suppliersWithProduct.has(supplier.fournisseur_id)),
     sitesNoHolder:sites.filter(site=>!activeSiteHolders.has(site.site_id)),
-    invalidStockRoutes:stockRoutes.filter(invalidRoute),
-    invalidMoneyRoutes:moneyRoutes.filter(invalidRoute)
+    invalidStockRoutes:stockRoutes.filter(invalidRoute)
   }
 }
 function adminAttentionModels(data){return[
@@ -74,8 +73,7 @@ function adminAttentionModels(data){return[
   ]},
   {title:'Boutiques et flux',icon:'↔',alerts:[
     {count:data.sitesNoHolder.length,label:'URGENT',tone:'urgent',title:'Lieux sans stock actif',description:'Ces lieux ne peuvent pas détenir de produits.',action:'adminSites()',button:'Corriger les lieux'},
-    {count:data.invalidStockRoutes.length,label:'URGENT',tone:'urgent',title:'Routes de stock incohérentes',description:'Une extrémité de la route est inactive ou introuvable.',action:'adminStockRoutes()',button:'Corriger les routes'},
-    {count:data.invalidMoneyRoutes.length,label:'URGENT',tone:'urgent',title:'Routes financières incohérentes',description:'Une extrémité de la route est inactive ou introuvable.',action:'adminFinancialRoutes()',button:'Corriger les routes'}
+    {count:data.invalidStockRoutes.length,label:'URGENT',tone:'urgent',title:'Routes de stock incohérentes',description:'Une extrémité de la route est inactive ou introuvable.',action:'adminStockRoutes()',button:'Corriger les routes'}
   ]}
 ]}
 function adminAttentionSummary(data){const all=adminAttentionModels(data).flatMap(group=>group.alerts),active=all.filter(alert=>alert.count),elements=active.reduce((total,alert)=>total+alert.count,0),urgent=active.filter(alert=>alert.tone==='urgent').reduce((total,alert)=>total+alert.count,0);return{all,active,elements,urgent,topics:active.length}}

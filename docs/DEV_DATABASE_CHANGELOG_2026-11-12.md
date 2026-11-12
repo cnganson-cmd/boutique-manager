@@ -32,13 +32,13 @@ Les soldes existants ont été conservés. Les anciens scénarios de flux et leu
 
 ## Résultat de contrôle après scénarios de test
 - 52 lignes de stock courant.
-- 53 mouvements de stock.
-- 997 unités physiques.
-- 997 unités justifiées par le journal.
-- 0 écart entre soldes et journal.
+- 54 mouvements de stock.
+- 998 unités physiques.
+- 998 unités justifiées par le journal.
+- 0 écart entre soldes et journal. Une correction d’inventaire a été testée et est bien présente dans le journal.
 - 1 transfert de test clôturé après réservation, expédition, transit, réception et confirmation.
 - 1 arrivage fournisseur de test enregistré avec le conditionnement d'origine.
-- 2 sessions d'inventaire de test : une clôturée sans écart et une annulée après test du gel des mouvements.
+- 3 sessions d'inventaire de test : une clôturée sans écart, une annulée après test du gel des mouvements et une clôturée avec un écart positif de 1 unité, enregistré par mouvement correctif.
 - 7 déclarations de recettes, 15 lignes de paiement.
 - 0 mouvement financier lié à une recette.
 

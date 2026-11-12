@@ -50,7 +50,7 @@ const context={
 };
 context.window=context;
 vm.createContext(context);
-for(const file of ['ux-shell.js','catalog-ux.js','route-aware-requests.js','stock-flow-ux.js','stock-network-ux.js','supplier-arrivals-ux.js','flow-inboxes.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
+for(const file of ['ux-shell.js','catalog-ux.js','route-aware-requests.js','stock-flow-ux.js','stock-network-ux.js','supplier-arrivals-ux.js','flow-inboxes.js','inventory-ux.js','money-ux.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 
 function includes(...labels){for(const label of labels)assert.ok(app.innerHTML.includes(label),`Élément absent: ${label}`)}
 function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A-Za-z_$][\w$]*)/g)){assert.equal(vm.runInContext(`typeof ${match[1]}`,context),'function',`Handler absent: ${match[1]}`)}}

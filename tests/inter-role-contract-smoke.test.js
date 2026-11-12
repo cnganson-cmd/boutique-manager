@@ -15,10 +15,9 @@ for(const expected of [
   'operationalInbox(\'requests\')',
   'operationalInbox(\'receipts\')',
   'operationalInbox(\'confirmations\')',
-  'patronStockFlows()',
-  'patronMoney()',
-  'destockerMoneyHome()'
+  'patronStockFlows()'
 ]) assert.ok(shell.includes(expected),`Parcours absent : ${expected}`);
+assert.doesNotMatch(shell,/patronMoney\\(\\)|destockerMoneyHome\\(\\)|Ma caisse mobile|Remises à confirmer/);
 
 assert.match(stock,/creer_flux_stock/);
 assert.match(money,/creer_retrait_argent/);

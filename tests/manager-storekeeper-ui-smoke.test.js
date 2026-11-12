@@ -73,7 +73,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('Réceptions','Dépôt Marché Central','Boutique 104','En transit');
 
   vm.runInContext('moneyHome()',context);
-  includes('Déclarations de recettes','Déclarer une recette','Historique des recettes');
+  includes('Déclarations de recettes','Déclarer une recette','Voir l’historique des recettes');
   handlersExist();
   vm.runInContext('moneyRevenue()',context);
   includes('Espèces','Mobile Money','Ajouter un moyen de paiement','Total déclaré');

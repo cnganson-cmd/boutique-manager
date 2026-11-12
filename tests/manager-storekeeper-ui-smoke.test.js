@@ -24,9 +24,9 @@ const context={
     return [];
   },
   request:async (path,options={})=>{
-    if(path.includes('consulter_repartition_stock'))return [
-      {detenteur_stock_id:holderDepot,type_detenteur:'SITE',detenteur_nom:'Dépôt Marché Central',reference_produit_id:'ref-a',sku_interne:'SAM-000101',photo_url:null,marque_nom:'Caro Care',produit_nom:'Crème clarifiante',variante:null,reference_libelle:'Crème 300 G',quantite:18,mis_a_jour_le:'2026-09-20T08:00:00Z'},
-      {detenteur_stock_id:holderWarehouse,type_detenteur:'SITE',detenteur_nom:'Entrepôt Marché Kol Bikok',reference_produit_id:'ref-a',sku_interne:'SAM-000101',photo_url:null,marque_nom:'Caro Care',produit_nom:'Crème clarifiante',variante:null,reference_libelle:'Crème 300 G',quantite:7,mis_a_jour_le:'2026-09-20T09:00:00Z'}
+    if(path.includes('consulter_stocks_operationnels'))return [
+      {detenteur_stock_id:holderDepot,type_detenteur:'SITE',detenteur_nom:'Dépôt Marché Central',reference_produit_id:'ref-a',sku_interne:'SAM-000101',photo_url:null,marque_nom:'Caro Care',produit_nom:'Crème clarifiante',variante:null,reference_libelle:'Crème 300 G',quantite_physique:18,quantite_reservee:0,quantite_disponible:18,quantite_en_transit:0,mis_a_jour_le:'2026-09-20T08:00:00Z'},
+      {detenteur_stock_id:holderWarehouse,type_detenteur:'SITE',detenteur_nom:'Entrepôt Marché Kol Bikok',reference_produit_id:'ref-a',sku_interne:'SAM-000101',photo_url:null,marque_nom:'Caro Care',produit_nom:'Crème clarifiante',variante:null,reference_libelle:'Crème 300 G',quantite_physique:7,quantite_reservee:0,quantite_disponible:7,quantite_en_transit:0,mis_a_jour_le:'2026-09-20T09:00:00Z'}
     ];
     if(path.includes('consulter_mouvements_stock_accessibles'))return [];
     if(path.includes('consulter_arrivages_fournisseur'))return [{arrivage_fournisseur_id:'arrival-1',numero_interne:'ARR-2026-000001',numero_bon_fournisseur:'BL-LANA-42',date_livraison:'2026-09-20',statut:'VALIDE',site_id:'site-depot',site_nom:'Dépôt Marché Central',fournisseur_id:'supplier-1',fournisseur_nom:'Lana Bio Cosmétique',acteur_nom:'Yakin',nombre_references:1,quantite_recue:12,quantite_abimee:1,quantite_entree_stock:11,cree_le:'2026-09-20T09:00:00Z'}];
@@ -57,7 +57,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
 
 (async()=>{
   vm.runInContext("activeContextSiteId='site-104';home()",context);
-  includes('Boutique 104','Recette aujourd’hui','À traiter','Réceptions en transit','Flux en cours','À TRAITER AUJOURD’HUI','ACTIVITÉ DE LA BOUTIQUE','Actions rapides','Déclarer la recette','Recette et caisse','Demander du stock','Contrôler un arrivage','Retourner du stock','Transférer du stock');
+  includes('Boutique 104','Recette aujourd’hui','À traiter','Réceptions en transit','Flux en cours','À TRAITER AUJOURD’HUI','ACTIVITÉ DE LA BOUTIQUE','Actions rapides','Déclarer la recette','Déclarations de recettes','Demander du stock','Contrôler un arrivage','Retourner du stock','Transférer du stock');
   handlersExist();
   await new Promise(resolve=>setTimeout(resolve,0));
   assert.equal(uiNodes['metric-today-revenue'].textContent,'0 F');
@@ -73,7 +73,8 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('Réceptions','Dépôt Marché Central','Boutique 104','En transit');
 
   vm.runInContext('moneyHome()',context);
-  includes('Recettes & remises','Déclarer ma recette','Remise reçue','Demander un retrait');
+  includes('Déclarations de recettes','Espèces','Mobile Money','Ajouter un moyen de paiement');
+  assert.doesNotMatch(app.innerHTML,/Remise reçue|Demander un retrait|Retraits|Arbitrages/);
   handlersExist();
 
   actor='storekeeper';
@@ -87,7 +88,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   handlersExist();
 
   await vm.runInContext('stockNetwork()',context);
-  includes('SAM-000101','Crème clarifiante','25 unités','2 emplacements','Dépôt Marché Central');
+  includes('SAM-000101','Crème clarifiante','Physique 25','Disponible 25','2 emplacement','Dépôt Marché Central');
   handlersExist();
 
   await vm.runInContext('supplierArrivalHome()',context);
@@ -98,7 +99,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   includes('Choisissez d’abord le fournisseur','Choisissez le fournisseur','produits disponibles dépendront de ce choix');
   handlersExist();
 
-  vm.runInContext("document.getElementById=id=>({'arrival-supplier':{value:'supplier-1'},'arrival-number':{value:'BL-LANA-TEST'},'arrival-date':{value:'2026-09-20'},'arrival-comment':{value:''}}[id]||null);supplierArrivalDraft.supplierId='supplier-1';supplierArrivalDraft.supplierNumber='BL-LANA-TEST';supplierArrivalDraft.deliveryDate='2026-09-20';supplierArrivalDraft.lines=[{referenceId:'ref-a',sku:'SAM-000101',label:'Crème 300 G',brand:'Caro Care',productName:'Crème clarifiante',photo:'',emoji:'🧴',expected:9,received:9,damaged:2,comment:''}];reviewSupplierArrival()",context);
+  vm.runInContext("document.getElementById=id=>({'arrival-supplier':{value:'supplier-1'},'arrival-number':{value:'BL-LANA-TEST'},'arrival-date':{value:'2026-09-20'},'arrival-comment':{value:''}}[id]||null);supplierArrivalDraft.supplierId='supplier-1';supplierArrivalDraft.supplierNumber='BL-LANA-TEST';supplierArrivalDraft.deliveryDate='2026-09-20';supplierArrivalDraft.lines=[{referenceId:'ref-a',sku:'SAM-000101',label:'Crème 300 G',brand:'Caro Care',productName:'Crème clarifiante',photo:'',emoji:'🧴',expected:9,received:9,receivedEntered:3,packagingId:'pack-3',packagingMultiplier:3,packagingName:'Quart de douzaine',damaged:2,comment:''}];reviewSupplierArrival()",context);
   includes('Valider l’arrivage ?','7 unité(s) au stock','BL-LANA-TEST','Reçu / abîmé','9 / 2','Valider et entrer en stock');
   handlersExist();
 
@@ -110,7 +111,7 @@ function handlersExist(){for(const match of app.innerHTML.matchAll(/onclick="([A
   assert.equal(submittedSupplierArrival.p_operation_client_id,'operation-test');
   assert.equal(submittedSupplierArrival.p_site_id,'site-depot');
   assert.equal(submittedSupplierArrival.p_fournisseur_id,'supplier-1');
-  assert.deepEqual(JSON.parse(JSON.stringify(submittedSupplierArrival.p_lignes)),[{reference_produit_id:'ref-a',quantite_attendue:9,quantite_recue:9,quantite_abimee:2,commentaire:null}]);
+  assert.deepEqual(JSON.parse(JSON.stringify(submittedSupplierArrival.p_lignes)),[{reference_produit_id:'ref-a',quantite_attendue:9,quantite_recue:9,quantite_abimee:2,conditionnements_saisis:[{conditionnement_reference_id:'pack-3',quantite_saisie:3}],commentaire:null}]);
 
   await vm.runInContext("operationalInbox('requests')",context);
   includes('Demandes reçues','Dépôt Marché Central','Boutique 104','Nouvelle demande');

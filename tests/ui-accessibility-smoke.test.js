@@ -132,7 +132,7 @@ assert.match(read('supplier-arrivals-ux.js'), /enregistrer_arrivage_fournisseur/
 assert.match(read('supplier-arrivals-ux.js'), /numero_interne/);
 assert.match(read('supplier-arrivals-ux.js'), /consulter_references_fournisseur_reception/);
 assert.match(read('admin-extras.js'), /adminSupplierProducts/);
-assert.match(index, /admin-extras\.js\?v=12/);
+assert.match(index, /admin-extras\.js\?v=14/);
 assert.match(read('admin-extras.js'), /function adminSupplierArrivals/);
 assert.match(read('admin-extras.js'), /function adminSupplierArrivalDetail/);
 assert.match(read('admin-extras.js'), /function adminSupplierHistory/);
